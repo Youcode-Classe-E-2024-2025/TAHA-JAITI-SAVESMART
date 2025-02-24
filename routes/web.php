@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::controller(AuthController::class)->group(function () {
     Route::get('/signup', 'registerForm')->name('auth.signup');
     Route::post('/signup', 'register')->name('auth.signuppost');
+
+    Route::get('/login', 'loginForm')->name('auth.login');
+    Route::post('/login', 'login')->name('auth.loginpost');
 });
 
 

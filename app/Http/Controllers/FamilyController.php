@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Family;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -18,7 +19,8 @@ class FamilyController extends Controller
         return view('family.code', ['family' => $family]);
     }
 
-    public function store(request $request){
+    public function store(request $request): RedirectResponse
+    {
         $request->validate([
             'name' => 'required|string'
         ]);
