@@ -11,6 +11,7 @@ Route::controller(AuthController::class)->group(function () {
 
 
 Route::controller(FamilyController::class)->group(function() {
+    Route::post('/family/create', 'store')->name('family.store');
     Route::get('/family/create', 'create')->name('family.create');
-    Route::get('/family/code', 'code')->name('family.code');
+    Route::get('/family/{family}/code', 'code')->name('family.code');
 });

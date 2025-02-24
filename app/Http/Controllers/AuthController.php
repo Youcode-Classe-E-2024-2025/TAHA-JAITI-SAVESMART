@@ -10,14 +10,15 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
-    public function registerForm(){
+    public function registerForm()
+    {
         return view('auth.signup');
     }
 
 
     //Register
-    public function register(request $request){
-
+    public function register(request $request)
+    {
         $request->validate([
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|string|email|max:255|unique:users',
