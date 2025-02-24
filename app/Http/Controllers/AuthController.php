@@ -60,6 +60,6 @@ class AuthController extends Controller
             return redirect()->route('auth.login')->with('status', 'Logged in successfully');
         }
 
-        return back()->with('status', 'Invalid login details');
+        return back()->with('status', 'Invalid password, please try again');
     }
 }

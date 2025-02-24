@@ -6,7 +6,7 @@
     <title>@yield('title', '7sebFlosk')</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
-<body class="overflow-x-hidden text-white bg-black"">
+<body class="overflow-x-hidden text-white bg-black">
     <header>
         @include('partials.header')
     </header>
