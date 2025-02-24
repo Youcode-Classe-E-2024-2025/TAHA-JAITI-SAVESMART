@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'family_id',
+        'is_head',
     ];
 
     /**
@@ -44,5 +46,12 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the family that the user belongs to.
+     */
+    public function family() {
+        $this->belongsTo(Family::class);
     }
 }

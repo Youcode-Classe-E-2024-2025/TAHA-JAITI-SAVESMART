@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique()->index();
-            $table->timestamp('email_verified_at')->nullable();
             $table->text('password');
             $table->foreignId('family_id')->nullable()->index();
             $table->boolean('is_head')->default(false);
