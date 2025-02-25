@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use App\Models\Transaction;
 use Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class TransactionController extends Controller
@@ -57,27 +58,50 @@ class TransactionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(Transaction $transaction)
     {
-        //
+        $user = Auth::user();
+        $categories = [];
+
+        if ($user->family_id) {
+            $categories = Category::where('family_id', $user->family_id)->get();
+        } else {
+            $categories = Category::where('user_id', $user->id)->get();
+        }
+
+        // Ensure the transaction belongs to the user or their family
+        if ($transaction->user_id !== $user->id && $transaction->family_id !== $user->family_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return view('transaction.edit', compact('categories', 'transaction'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Transaction $transaction)
+    public function update(Request $request, Transaction $transaction): RedirectResponse
     {
-        //
+        $user = Auth::user();
+
+        // Ensure the transaction belongs to the user or their family
+        if ($transaction->user_id !== $user->id && $transaction->family_id !== $user->family_id) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        $validatedData = $request->validate([
+            'amount' => 'required|numeric|min:0',
+            'date_received' => 'required|date',
+            'category_id' => 'required|exists:categories,id',
+            'frequency' => 'required|in:monthly,weekly,daily,one-time',
+            'type' => 'required|in:income,expense',
+        ]);
+
+        $transaction->update($validatedData);
+
+        return redirect()->route('dashboard.transactions')->with('success', 'Transaction updated successfully.');
     }
 
     /**
