@@ -42,11 +42,7 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        if ($is_head) {
-            return to_route('family.create');
-        }
-
-        return to_route('home');
+        return $is_head ? to_route('family.create') : to_route('home');
     }
 
     public function login(request $request): RedirectResponse
@@ -57,10 +53,10 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('auth.login.form')->with('status', 'Logged in successfully');
+            return redirect()->route('home')->with('status', 'Logged in successfully');
         }
 
-        return back()->with('status', 'Invalid password, please try again');
+        return to_route('auth.login.form')->with('status', 'Invalid password, please try again');
     }
 
     public function logout(): RedirectResponse
