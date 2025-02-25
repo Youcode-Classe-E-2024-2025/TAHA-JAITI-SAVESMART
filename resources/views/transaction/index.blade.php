@@ -11,7 +11,7 @@
                 <p class="text-gray-600">Manage your income and expenses</p>
             </div>
             <div class="flex items-center gap-4">
-                <a href="{{ route('transaction.create') }}" class="px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors">
+                <a href="{{ route('transactions.create') }}" class="px-4 py-2 rounded-full bg-green-500 text-white hover:bg-green-600 transition-colors">
                     New Transaction
                 </a>
                 <button
@@ -20,7 +20,7 @@
                 </button>
             </div>
         </div>
-        <form action="{{ route('dashboard.transactions') }}" method="GET">
+        <form action="{{ route('transactions.index') }}" method="GET">
             <div class="grid gap-4 mb-8 md:grid-cols-2">
                 <div class="glass rounded-xl p-4">
                     <select name="category_id"
@@ -82,7 +82,7 @@
                                                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/>
                                         </svg>
                                     </a>
-                                    <form action="{{ route('transaction.destroy', $transaction) }}" method="POST">
+                                    <form action="{{ route('transactions.destroy', $transaction) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button class="p-2 rounded-lg hover:bg-gray-200">

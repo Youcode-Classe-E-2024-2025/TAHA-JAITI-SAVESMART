@@ -45,9 +45,9 @@ class TransactionController extends Controller
             $query->whereDate('date', $request->date);
         }
 
-        $transactions = $query->paginate(10);
+        $transactions = $query->paginate(6);
 
-        return view('dash.transactions', compact('categories', 'transactions'));
+        return view('transaction.index', compact('categories', 'transactions'));
     }
 
     /**
@@ -94,7 +94,7 @@ class TransactionController extends Controller
         $transaction->type === 'income' ? Auth::user()->balance += $transaction->amount : Auth::user()->balance -= $transaction->amount;
         Auth::user()->save();
 
-        return to_route('dashboard');
+        return to_route('transactions.index')->with('success', 'Transaction created successfully.');
     }
 
     /**

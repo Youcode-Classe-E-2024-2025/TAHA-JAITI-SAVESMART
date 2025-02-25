@@ -25,20 +25,19 @@ class FinancialGoalController extends Controller
             $query->where('user_id', $user->id);
         }
 
-        // Apply filters
-        if ($request->has('name') && $request->name != '') {
+        if ($request->name && $request->name !== '') {
             $query->where('name', 'like', '%' . $request->name . '%');
         }
 
-        if ($request->has('start_date') && $request->start_date != '') {
+        if ($request->start_date && $request->start_date !== '') {
             $query->whereDate('start_date', $request->start_date);
         }
 
-        if ($request->has('end_date') && $request->end_date != '') {
+        if ($request->end_date && $request->end_date !== '') {
             $query->whereDate('end_date', $request->end_date);
         }
 
-        $financialGoals = $query->paginate(10); // Adjust pagination as needed
+        $financialGoals = $query->paginate(6);
 
         return view('financial_goal.index', compact('financialGoals'));
     }

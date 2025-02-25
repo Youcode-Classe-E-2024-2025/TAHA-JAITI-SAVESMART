@@ -11,7 +11,7 @@
         <!-- Navigation -->
         <nav class="hidden md:flex space-x-4">
             <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900 transition-colors">Dashboard</a>
-            <a href="{{ route('dashboard.transactions') }}" class="text-gray-600 hover:text-gray-900 transition-colors">Transactions</a>
+            <a href="{{ route('transactions.index') }}" class="text-gray-600 hover:text-gray-900 transition-colors">Transactions</a>
             <a href="{{ route('financial_goals.index') }}" class="text-gray-600 hover:text-gray-900 transition-colors">Financial Goals</a>
         </nav>
         <!-- User Menu -->
