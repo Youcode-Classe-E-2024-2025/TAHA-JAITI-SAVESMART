@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FamilyController;
-use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,10 +34,10 @@ Route::controller(FamilyController::class)->group(function() {
     Route::get('/family/{family}/code', 'code')->name('family.code');
 });
 
-Route::controller(IncomeController::class)->group(function() {
+Route::controller(TransactionController::class)->group(function() {
 
-    Route::get('/income/create', 'create')->name('income.create');
-    Route::post('/income/create', 'store')->name('income.store');
+    Route::get('/transaction/create', 'create')->name('trans.create');
+    Route::post('/transaction/create', 'store')->name('trans.store');
 
 
 });

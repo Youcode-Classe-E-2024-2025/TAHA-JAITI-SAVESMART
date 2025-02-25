@@ -105,6 +105,10 @@
                         </td>
                     </tr>
                     <!-- More rows... -->
+
+                    @foreach()
+
+                    @endforeach
                     </tbody>
                 </table>
             </div>

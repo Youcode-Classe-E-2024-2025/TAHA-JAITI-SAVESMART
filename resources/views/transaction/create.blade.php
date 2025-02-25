@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', '7sebFlosk - sebFlosk - Add a new Income')</title>
+    <title>@yield('title', '7sebFlosk - sebFlosk - Add a new Transaction')</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
           integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
@@ -16,12 +16,12 @@
         <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 bg-gray-900 rounded-3xl shadow-2xl">
             <!-- Form Header -->
             <div class="mb-8">
-                <h1 class="text-3xl font-bold">Add New Income</h1>
-                <p class="text-gray-400">Record your income sources</p>
+                <h1 class="text-3xl font-bold">Add New Transaction</h1>
+                <p class="text-gray-400">Record your transactions</p>
             </div>
 
             <!-- Income Form -->
-            <form action="{{ route('income.store') }}" method="POST"
+            <form action="{{ route('trans.store') }}" method="POST"
                   class="glass rounded-3xl p-6 space-y-6">
                 @csrf
                 <!-- Basic Information -->
@@ -38,8 +38,9 @@
                     </div>
 
                     <div class="space-y-2">
-                        <label class="text-sm font-medium text-gray-400">Date</label>
+                        <label class="text-sm font-medium text-gray-400">Receive Date</label>
                         <input type="date"
+                               name="date_received"
                                class="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl focus:border-lime-400 focus:ring-lime-400">
                     </div>
                 </div>
@@ -76,12 +77,21 @@
                         <div class="space-y-2">
                             <label class="text-sm font-medium text-gray-400">Frequency</label>
                             <select
-                                name="type"
+                                name="frequency"
                                 class="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl focus:border-lime-400 focus:ring-lime-400">
                                 <option value="monthly">Monthly</option>
                                 <option value="weekly">Weekly</option>
                                 <option value="daily">Daily</option>
                                 <option value="one-time">One-Time</option>
+                            </select>
+                        </div>
+                        <div class="space-y-2">
+                            <label class="text-sm font-medium text-gray-400">Type</label>
+                            <select
+                                name="type"
+                                class="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl focus:border-lime-400 focus:ring-lime-400">
+                                <option value="income">Income</option>
+                                <option value="expense">Expense</option>
                             </select>
                         </div>
                     </div>
@@ -94,7 +104,7 @@
                         Save Income
                     </button>
                     <a href="{{route('dashboard')}}" type="button"
-                            class="px-6 py-2 border border-gray-700 rounded-xl hover:bg-gray-800 transition-colors">
+                       class="px-6 py-2 border border-gray-700 rounded-xl hover:bg-gray-800 transition-colors">
                         Cancel
                     </a>
                 </div>

@@ -12,12 +12,12 @@
         <div class="grid gap-4 mb-8 md:grid-cols-4">
             <div class="p-6 glass rounded-3xl">
                 <h3 class="mb-2 text-gray-400">Total Balance</h3>
-                <p class="text-3xl font-bold gradient-text">${{ Auth::user()->balance }}</p>
-                <span class="text-lime-400">+{{ $percentage }}% from last income</span>
+                <p class="text-3xl font-bold gradient-text">$24,563.00</p>
+                <span class="text-lime-400">+2.3% from last month</span>
             </div>
             <div class="p-6 glass rounded-3xl">
                 <h3 class="mb-2 text-gray-400">Monthly Income</h3>
-                <p class="text-3xl font-bold gradient-text">${{ $monthlyIncome }}</p>
+                <p class="text-3xl font-bold gradient-text">$8,350.00</p>
                 <span class="text-lime-400">+5.1% from last month</span>
             </div>
             <div class="p-6 glass rounded-3xl">
