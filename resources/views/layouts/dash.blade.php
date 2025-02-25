@@ -7,6 +7,9 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
 <body class="overflow-x-hidden text-white bg-black">
+
+@include('partials.dash')
+
 <main>
     @yield('content')
 </main>
