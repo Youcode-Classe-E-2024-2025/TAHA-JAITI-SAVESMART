@@ -32,6 +32,8 @@ class IncomeController extends Controller
 
         Auth::user()->balance += $request->amount;
 
+        Auth::user()->save();
+
         return to_route('dashboard');
     }
 
