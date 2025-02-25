@@ -62,4 +62,10 @@ class AuthController extends Controller
 
         return back()->with('status', 'Invalid password, please try again');
     }
+
+    public function logout(): RedirectResponse
+    {
+        Auth::logout();
+        return redirect()->route('auth.login.form');
+    }
 }
