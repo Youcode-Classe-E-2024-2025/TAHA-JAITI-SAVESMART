@@ -18,7 +18,7 @@
         <div class="flex items-center space-x-4">
             <div class="relative">
                 <button id="user-menu" class="flex items-center text-gray-600 hover:text-gray-900 transition-colors">
-                    <span>{{ Auth::user()->name }}</span>
+{{--                    <span>{{ Auth::user()->name }}</span>--}}
                     <i class="fas fa-chevron-down ml-2"></i>
                 </button>
                 <!-- Dropdown Menu -->

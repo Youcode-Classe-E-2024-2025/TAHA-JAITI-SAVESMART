@@ -15,9 +15,11 @@ Route::get('/', static function () {
     return view('home');
 })->name('home');
 
-Route::controller(DashboardController::class)->group(function () {
-    Route::get('/dashboard', 'index')->name('dashboard');
-});
+//Route::controller(DashboardController::class)->group(function () {
+//    Route::get('/dashboard', 'index')->name('dashboard');
+//})->middleware('check-income');
+
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')->middleware('check-income');
 
 Route::resource('financial_goals', FinancialGoalController::class);
 Route::resource('transactions', TransactionController::class);

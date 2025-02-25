@@ -11,7 +11,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias(
+            ['check-income' => \App\Http\Middleware\IncerementBalanceMiddleware::class]
+        );
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
