@@ -23,7 +23,7 @@
                 @endif
 
                 <!-- Login Form -->
-                <form method="POST" action="{{ route('auth.loginpost') }}" class="space-y-6">
+                <form method="POST" action="{{ route('auth.login') }}" class="space-y-6">
                     @csrf
 
                     <!-- Email Input -->
@@ -80,7 +80,7 @@
                 <div class="mt-8 text-center">
                     <p class="text-gray-400">
                         Don't have an account?
-                        <a href="{{ route('auth.signup') }}" class="text-yellow-500 hover:text-yellow-400 font-medium ml-1 transition-colors">
+                        <a href="{{ route('auth.signup.form') }}" class="text-yellow-500 hover:text-yellow-400 font-medium ml-1 transition-colors">
                             Sign up
                         </a>
                     </p>

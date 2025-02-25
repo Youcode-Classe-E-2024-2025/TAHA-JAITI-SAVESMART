@@ -31,7 +31,7 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|max:255',
         ]);
 
-        $is_head = $request->has('is_head') ? true : false;
+        $is_head = $request->has('is_head');
 
         $user = User::create([
             'name' => $request->name,
@@ -46,7 +46,7 @@ class AuthController extends Controller
             return to_route('family.create');
         }
 
-        return to_route('auth.signup');
+        return to_route('home');
     }
 
     public function login(request $request): RedirectResponse
@@ -57,7 +57,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
-            return redirect()->route('auth.login')->with('status', 'Logged in successfully');
+            return redirect()->route('auth.login.form')->with('status', 'Logged in successfully');
         }
 
         return back()->with('status', 'Invalid password, please try again');
