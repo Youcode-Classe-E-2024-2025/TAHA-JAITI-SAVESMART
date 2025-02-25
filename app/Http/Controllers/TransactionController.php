@@ -43,7 +43,7 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
            'user_id' => auth()->id(),
            'amount' => $request->amount,
-           'category_id' => $request->category_id,
+           'category_id' => $request->get('category_id'),
            'frequency' => $request->frequency,
            'type' => $request->type,
            'date_received' => $request->date_received,

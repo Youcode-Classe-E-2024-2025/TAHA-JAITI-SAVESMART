@@ -11,7 +11,7 @@ class Transaction extends Model
         'user_id',
         'family_id',
         'amount',
-        'source',
+        'category_id',
         'type',
         'frequency',
         'date_received',

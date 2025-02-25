@@ -6,6 +6,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
+require __DIR__.'/auth.php';
+require __DIR__.'/category.php';
+require __DIR__.'/transactions.php';
+
 
 Route::get('/', static function () {
     return view('home');
@@ -16,18 +20,8 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard/transactions', 'transactions')->name('dashboard.transactions');
 });
 
-require __DIR__.'/category.php';
 
 
-Route::controller(AuthController::class)->group(function () {
-    Route::get('/signup', 'registerForm')->name('auth.signup.form');
-    Route::post('/signup', 'register')->name('auth.signup');
-
-    Route::get('/login', 'loginForm')->name('auth.login.form');
-    Route::post('/login', 'login')->name('auth.login');
-
-    Route::post('/logout', 'logout')->name('auth.logout');
-});
 
 
 Route::controller(FamilyController::class)->group(function() {
@@ -36,8 +30,4 @@ Route::controller(FamilyController::class)->group(function() {
     Route::get('/family/{family}/code', 'code')->name('family.code');
 });
 
-Route::controller(TransactionController::class)->group(function() {
 
-    Route::get('/transaction/create', 'create')->name('trans.create');
-    Route::post('/transaction/create', 'store')->name('trans.store');
-});
