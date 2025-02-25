@@ -1,4 +1,4 @@
-@extends('layouts.dash')
+@extends('layouts.app')
 @section('title', '7sebFlosk - Create Financial Goal')
 @section('content')
     <!-- Main Content -->
