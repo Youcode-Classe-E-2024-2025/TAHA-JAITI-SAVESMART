@@ -12,4 +12,8 @@ class Family extends Model
         'owner_id',
         'code',
     ];
+
+    public function category(){
+        return $this->hasMany(Category::class);
+    }
 }

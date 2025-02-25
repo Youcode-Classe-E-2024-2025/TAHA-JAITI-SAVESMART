@@ -48,26 +48,17 @@
                 <!-- Source and Category -->
                 <div class="grid gap-6 md:grid-cols-2">
                     <div class="space-y-2">
-                        <label class="text-sm font-medium text-gray-400">Source</label>
-                        <select
-                            name="source"
-                            class="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl focus:border-lime-400 focus:ring-lime-400">
-                            <option value="">Select Source</option>
-                            <option value="salary">Salary</option>
-                            <option value="freelance">Freelance</option>
-                            <option value="investments">Investments</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-2">
                         <label class="text-sm font-medium text-gray-400">Category</label>
                         <select class="w-full px-4 py-2 bg-gray-800/50 border border-gray-700 rounded-xl focus:border-lime-400 focus:ring-lime-400">
-                            <option value="">Select Category</option>
-                            <option value="regular">Regular Income</option>
-                            <option value="bonus">Bonus</option>
-                            <option value="passive">Passive Income</option>
+                            @if (count($categories) > 0)
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>>
+                                @endforeach
+                            @else
+                                <option value="">No category has been created</option>>
+                            @endif
                         </select>
+
                     </div>
                 </div>
 

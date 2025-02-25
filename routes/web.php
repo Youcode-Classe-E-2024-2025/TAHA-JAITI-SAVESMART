@@ -16,6 +16,8 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard/transactions', 'transactions')->name('dashboard.transactions');
 });
 
+require __DIR__.'/category.php';
+
 
 Route::controller(AuthController::class)->group(function () {
     Route::get('/signup', 'registerForm')->name('auth.signup.form');
@@ -38,6 +40,4 @@ Route::controller(TransactionController::class)->group(function() {
 
     Route::get('/transaction/create', 'create')->name('trans.create');
     Route::post('/transaction/create', 'store')->name('trans.store');
-
-
 });

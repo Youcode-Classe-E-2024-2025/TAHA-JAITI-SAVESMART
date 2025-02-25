@@ -8,13 +8,12 @@ class DashboardController extends Controller
 {
     public function index(){
 
-
         return view('dash.index',);
     }
 
     public function transactions(){
-        $incomes = auth()->user()->transactions()->latest()->get();
+        $transactions = auth()->user()->transactions()->latest()->get()->sortBy('created_at');
 
-        return view('dash.transactions', compact('incomes'));
+        return view('dash.transactions', compact('transactions'));
     }
 }

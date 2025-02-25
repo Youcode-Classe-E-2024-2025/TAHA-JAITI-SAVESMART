@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->index();
             $table->foreignId('family_id')->nullable()->index();
+            $table->foreignId('category_id')->nullable()->index();
             $table->decimal('amount', 10, 2);
-            $table->string('source');
             $table->enum('type', ['income', 'expense']);
             $table->enum('frequency', ['monthly', 'daily', 'weekly', 'one-time']);
             $table->date('date_received')->nullable();

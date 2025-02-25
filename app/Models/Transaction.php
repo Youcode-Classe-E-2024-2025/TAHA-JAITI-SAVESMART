@@ -16,4 +16,8 @@ class Transaction extends Model
         'frequency',
         'date_received',
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
 }

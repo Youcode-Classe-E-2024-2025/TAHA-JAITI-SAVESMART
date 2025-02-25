@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Transaction;
 use Auth;
 use Illuminate\Http\Request;
@@ -9,19 +10,21 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('transaction.create');
+        $user = auth()->user();
+
+        $categories = [];
+
+        if ($user->family_id){
+            $categories = Category::where('family_id', $user->family_id)->get() ?? [];
+        } else {
+            $categories = Category::where('user_id', $user->id)->get() ?? [];
+        }
+
+        return view('transaction.create', compact('categories'));
     }
 
     /**
@@ -31,7 +34,7 @@ class TransactionController extends Controller
     {
         $request->validate([
             'amount' => 'required|numeric',
-            'source' => 'required|string|max:255',
+            'category_id' => 'integer|exists:categories,id',
             'frequency' => 'required|string|max:255',
             'type' => 'required|string|max:255',
             'date_received' => 'nullable|date',
@@ -40,14 +43,14 @@ class TransactionController extends Controller
         $transaction = Transaction::create([
            'user_id' => auth()->id(),
            'amount' => $request->amount,
-           'source' => $request->source,
+           'category_id' => $request->category_id,
            'frequency' => $request->frequency,
            'type' => $request->type,
            'date_received' => $request->date_received,
            'family_id' => auth()->user()->family_id,
         ]);
 
-        Auth::user()->balance += $request->amount;
+        $transaction->type === 'income' ? Auth::user()->balance += $transaction->amount : Auth::user()->balance -= $transaction->amount;
         Auth::user()->save();
 
         return to_route('dashboard');
