@@ -1,8 +1,6 @@
 {{-- transactions.blade.php --}}
 @extends('layouts.dash')
-
 @section('title', '7sebFlosk - Transactions')
-
 @section('content')
     <!-- Main Content -->
     <div class="p-4 sm:ml-64 bg-gray-900">
@@ -13,16 +11,15 @@
                 <p class="text-gray-400">Manage your income and expenses</p>
             </div>
             <div class="flex items-center gap-4">
-                <button class="px-4 py-2 rounded-full bg-lime-400 text-black hover:bg-yellow-400 transition-colors">
+                <a href="{{ route('trans.create') }}" class="px-4 py-2 rounded-full bg-lime-400 text-black hover:bg-yellow-400 transition-colors">
                     New Transaction
-                </button>
+                </a>
                 <button
-                    class="px-4 py-2 rounded-full border border-gray-700 text-gray-400 hover:bg-gray-800 transition-colors">
+                        class="px-4 py-2 rounded-full border border-gray-700 text-gray-400 hover:bg-gray-800 transition-colors">
                     Export CSV
                 </button>
             </div>
         </div>
-
         <form action="{{ route('dashboard.transactions') }}" method="GET">
             <div class="grid gap-4 mb-8 md:grid-cols-4">
                 <div class="glass rounded-xl p-4">
@@ -31,7 +28,7 @@
                         <option value="">All Categories</option>
                         @foreach($categories as $category)
                             <option
-                                value="{{ $category->id }}" {{ request('category_id') === $category->id ? 'selected' : '' }}>
+                                    value="{{ $category->id }}" {{ request('category_id') === $category->id ? 'selected' : '' }}>
                                 {{ $category->name }}
                             </option>
                         @endforeach
@@ -45,14 +42,9 @@
                         <option value="expense" {{ request('type') === 'expense' ? 'selected' : '' }}>Expense</option>
                     </select>
                 </div>
-                <div class="glass rounded-xl p-4">
-                    <input type="date" name="date" value="{{ request('date') }}"
-                           class="w-full bg-transparent border-gray-700 rounded-lg focus:border-lime-400 focus:ring-lime-400">
-                </div>
             </div>
             <button type="submit" class="bg-lime-400 text-white px-4 py-2 rounded-lg">Apply Filters</button>
         </form>
-
         <!-- Transactions Table -->
         <div class="glass rounded-3xl overflow-hidden">
             <table class="w-full text-left">
@@ -66,14 +58,18 @@
                 </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-800">
-                @if (count($transactions) > 0)
+                @if ($transactions->isEmpty())
+                    <tr>
+                        <td colspan="5" class="p-4 text-center text-gray-400">No transactions found.</td>
+                    </tr>
+                @else
                     @foreach($transactions as $transaction)
                         <tr class="hover:bg-gray-800/30">
-                            <td class="p-4">{{ $transaction->created_at }}</td>
+                            <td class="p-4">{{ $transaction->date_received }}</td>
                             <td class="p-4">{{ $transaction->category->name }}</td>
                             <td class="p-4">
                             <span
-                                class="px-2 py-1 text-xs rounded-full bg-lime-400/20 text-lime-400">{{ ucfirst($transaction->frequency) }}</span>
+                                    class="px-2 py-1 text-xs rounded-full bg-lime-400/20 text-lime-400">{{ ucfirst($transaction->frequency) }}</span>
                             </td>
                             <td class="p-4 {{ $transaction->type === 'income' ? 'text-lime-400' : 'text-yellow-400' }}">
                                 {{ $transaction->type === 'income' ? "+ $transaction->amount" : "- $transaction->amount" }}
@@ -97,29 +93,18 @@
                                             </svg>
                                         </button>
                                     </form>
-
                                 </div>
                             </td>
                         </tr>
                     @endforeach
-                @else
-                    <h1>Nothing</h1>
                 @endif
                 </tbody>
             </table>
         </div>
-
         <!-- Pagination -->
         <div class="flex justify-between items-center mt-4 p-4 glass rounded-xl">
             <div class="text-sm text-gray-400">
-                Showing 1 to 10 of 50 entries
-            </div>
-            <div class="flex gap-2">
-                <button class="px-4 py-2 rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700">Previous</button>
-                <button class="px-4 py-2 rounded-lg bg-lime-400 text-black hover:bg-yellow-400">1</button>
-                <button class="px-4 py-2 rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700">2</button>
-                <button class="px-4 py-2 rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700">3</button>
-                <button class="px-4 py-2 rounded-lg bg-gray-800 text-gray-400 hover:bg-gray-700">Next</button>
+                {{ $transactions->onEachSide(1)->links() }}
             </div>
         </div>
     </div>

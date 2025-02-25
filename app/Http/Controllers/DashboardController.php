@@ -24,10 +24,15 @@ class DashboardController extends Controller
             $categories = Category::where('user_id', $user->id)->get();
         }
 
-        $query = Transaction::where('user_id', $user->id);
+        $query = Transaction::query();
 
         if ($user->family_id) {
-            $query->orWhere('family_id', $user->family_id);
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                    ->orWhere('family_id', $user->family_id);
+            });
+        } else {
+            $query->where('user_id', $user->id);
         }
 
         // Filters
