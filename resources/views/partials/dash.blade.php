@@ -8,7 +8,7 @@
         </div>
         <ul class="space-y-2 font-medium">
             <li>
-                <a href="#" class="flex items-center p-2 rounded-lg text-white hover:bg-lime-400/20 group">
+                <a href="{{route('dashboard')}}" class="flex items-center p-2 rounded-lg text-white hover:bg-lime-400/20 group">
                     <svg class="w-5 h-5 text-lime-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4V1m0 3h18M3 4v13m0-13h4.5m-4.5 13h18V8H3m4.5-4v4"/>
                     </svg>
