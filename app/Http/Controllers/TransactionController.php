@@ -71,9 +71,8 @@ class TransactionController extends Controller
             $categories = Category::where('user_id', $user->id)->get();
         }
 
-        // Ensure the transaction belongs to the user or their family
         if ($transaction->user_id !== $user->id && $transaction->family_id !== $user->family_id) {
-            abort(403, 'Unauthorized action.');
+            abort(403, 'Unauthorized.');
         }
 
         return view('transaction.edit', compact('categories', 'transaction'));
@@ -85,11 +84,6 @@ class TransactionController extends Controller
     public function update(Request $request, Transaction $transaction): RedirectResponse
     {
         $user = Auth::user();
-
-        // Ensure the transaction belongs to the user or their family
-        if ($transaction->user_id !== $user->id && $transaction->family_id !== $user->family_id) {
-            abort(403, 'Unauthorized action.');
-        }
 
         $validatedData = $request->validate([
             'amount' => 'required|numeric|min:0',

@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FinancialGoalController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,8 +21,7 @@ Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard/transactions', 'transactions')->name('dashboard.transactions');
 });
 
-
-
+Route::resource('financial_goals', FinancialGoalController::class);
 
 
 Route::controller(FamilyController::class)->group(function() {
