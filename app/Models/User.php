@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'balance',
         'family_id',
         'is_head',
     ];
@@ -53,5 +54,9 @@ class User extends Authenticatable
      */
     public function family() {
         $this->belongsTo(Family::class);
+    }
+
+    public function incomes(){
+        return $this->hasMany(Income::class);
     }
 }

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('email')->unique()->index();
             $table->text('password');
+            $table->decimal('balance', 10, 2)->default(0);
             $table->foreignId('family_id')->nullable()->index();
             $table->boolean('is_head')->default(false);
             $table->rememberToken();
