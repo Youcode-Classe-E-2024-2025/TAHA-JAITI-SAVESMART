@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 require __DIR__.'/category.php';
-require __DIR__.'/transactions.php';
 
 
 Route::get('/', static function () {
@@ -22,7 +21,7 @@ Route::controller(DashboardController::class)->group(function () {
 });
 
 Route::resource('financial_goals', FinancialGoalController::class);
-
+Route::resource('transactions', TransactionController::class);
 
 Route::controller(FamilyController::class)->group(function() {
     Route::post('/family/create', 'store')->name('family.store');

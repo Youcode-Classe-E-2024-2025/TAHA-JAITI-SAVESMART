@@ -17,16 +17,7 @@
         <!-- User Menu -->
         <div class="flex items-center space-x-4">
             <div class="relative">
-                <button class="flex items-center text-gray-600 hover:text-gray-900 transition-colors">
-                    <i class="fas fa-bell mr-2"></i>
-                    <span class="relative inline-block">
-                        <span class="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-red-100 transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">3</span>
-                    </span>
-                </button>
-            </div>
-            <div class="relative">
                 <button id="user-menu" class="flex items-center text-gray-600 hover:text-gray-900 transition-colors">
-                    <img src="https://via.placeholder.com/32" alt="User Avatar" class="h-8 w-8 rounded-full mr-2">
                     <span>{{ Auth::user()->name }}</span>
                     <i class="fas fa-chevron-down ml-2"></i>
                 </button>

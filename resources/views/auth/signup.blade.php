@@ -1,7 +1,5 @@
 @extends('layouts.app')
-
 @section('title', '7sebFlosk - Create Account')
-
 @section('content')
     <div class="min-h-screen w-full flex items-center justify-center px-4 py-12 sm:px-6">
         <div class="w-full max-w-md relative">
@@ -9,23 +7,19 @@
             <div class="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 sm:p-8">
                 <!-- Subtle top gradient border -->
                 <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-yellow-500 to-lime-500 rounded-t-xl"></div>
-
                 <!-- Header -->
                 <div class="text-center mb-8">
                     <h1 class="text-2xl font-bold text-white mb-2">Create Account</h1>
                     <p class="text-gray-400 text-sm">Join us today and get started</p>
                 </div>
-
                 @if (session('status'))
-                    <div class="mb-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+                    <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
                         <p class="text-sm text-red-400 text-center">{{ session('status') }}</p>
                     </div>
                 @endif
-
                 <!-- Sign Up Form -->
                 <form method="POST" action="{{ route('auth.signup') }}" class="space-y-6">
                     @csrf
-
                     <!-- Name Input -->
                     <div class="space-y-2">
                         <label for="name" class="block text-sm font-medium text-gray-300">
@@ -46,7 +40,6 @@
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Email Input -->
                     <div class="space-y-2">
                         <label for="email" class="block text-sm font-medium text-gray-300">
@@ -67,7 +60,6 @@
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Password Input -->
                     <div class="space-y-2">
                         <label for="password" class="block text-sm font-medium text-gray-300">
@@ -87,7 +79,6 @@
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Password Confirmation Input -->
                     <div class="space-y-2">
                         <label for="password_confirmation" class="block text-sm font-medium text-gray-300">
@@ -104,18 +95,18 @@
                             >
                         </div>
                     </div>
-
-                    <!-- is_head Input -->
+                    <!-- is_head Checkbox -->
                     <div class="space-y-2">
                         <label for="is_head" class="block text-sm font-medium text-gray-300">
-                            Family account?
+                            Family Account?
                         </label>
                         <div class="relative flex items-center">
                             <input
                                 type="checkbox"
                                 id="is_head"
                                 name="is_head"
-                                class="h-5 w-5 rounded border-gray-700 bg-gray-900/50 text-yellow-500 focus:ring-yellow-500/20 focus:ring-offset-0"
+                                class="h-5 w-5 rounded border-gray-700 bg-gray-900/50 text-yellow-500 focus:ring-yellow-500 focus:ring-offset-0"
+                                {{ old('is_head') ? 'checked' : '' }}
                             >
                             <label for="is_head" class="ml-2 text-sm text-gray-400">
                                 Create a family account that can have multiple members
@@ -125,7 +116,6 @@
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                         @enderror
                     </div>
-
                     <!-- Sign Up Button -->
                     <button
                         type="submit"
@@ -134,7 +124,6 @@
                         Create Account
                     </button>
                 </form>
-
                 <!-- Login Link -->
                 <div class="mt-8 text-center">
                     <p class="text-gray-400">
@@ -148,3 +137,11 @@
         </div>
     </div>
 @endsection
+
+<style>
+    .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+</style>

@@ -1,27 +1,22 @@
 @extends('layouts.app')
-
 @section('title', '7sebFlosk - Family Creation')
-
 @section('content')
-    <div class="min-h-screen w-full flex items-center justify-center px-4 py-12 sm:px-6">
+    <div class="min-h-screen w-full flex flex-col items-center justify-center px-4 py-12 sm:px-6">
         <div class="w-full max-w-2xl relative">
             <!-- Card Container -->
             <div class="w-full bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 sm:p-8">
                 <!-- Subtle top gradient border -->
                 <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-yellow-500 to-lime-500 rounded-t-xl"></div>
-
                 <!-- Header with Family Info -->
                 <div class="text-center mb-8">
                     <h1 class="text-2xl font-bold text-white mb-2">{{ $family->name }}</h1>
                     <p class="text-gray-400 text-sm">Family Code</p>
                 </div>
-
                 @if (session('status'))
                     <div class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
                         <p class="text-sm text-red-400 text-center">{{ session('status') }}</p>
                     </div>
                 @endif
-
                 <!-- Family Code Section -->
                 <div class="mb-8">
                     <div class="bg-gray-800/50 rounded-lg p-4">
@@ -50,19 +45,16 @@
             </div>
         </div>
     </div>
-
     <script>
         function copyToClipboard() {
             const codeInput = document.getElementById('code');
             const button = event.target;
             const originalText = button.textContent;
-
             if (codeInput && codeInput.value) {
                 navigator.clipboard.writeText(codeInput.value)
                     .then(() => {
                         button.textContent = 'Copied!';
                         setTimeout(() => {
-                            window.location.href = '/';
                             button.textContent = originalText;
                         }, 2000);
                     })
@@ -71,3 +63,11 @@
         }
     </script>
 @endsection
+
+<style>
+    .glass {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.125);
+    }
+</style>
