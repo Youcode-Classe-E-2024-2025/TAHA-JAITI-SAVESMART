@@ -16,12 +16,12 @@
                         </button>
                     </form>
                 @else
-                <form action="{{ route('family.leave') }}" method="POST">
-                    @csrf
-                    <button>
-                        Leave Family
-                    </button>
-                </form>
+                    <form action="{{ route('family.leave') }}" method="POST">
+                        @csrf
+                        <button>
+                            Leave Family
+                        </button>
+                    </form>
                 @endif
                 <h3 class="text-xl font-semibold mb-4">{{ Auth::user()->family->code ?? 'Your Family' }}</h3>
                 <h4 class="text-lg font-semibold mb-4">Family Members</h4>
@@ -37,10 +37,14 @@
                             </div>
                             @if (Auth::user()->role === 'head' && $member->email !== Auth::user()->email)
                                 <div>
-                                    <a
-                                        class="inline-block bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300">
-                                        Remove
-                                    </a>
+                                    <form action="{{ route('family.remove', $member->id) }}" method="POST">
+                                        @csrf
+                                        <button
+                                            class="inline-block bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300">
+                                            Remove
+                                        </button>
+                                    </form>
+
                                 </div>
                             @endif
                         </li>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Family;
 use Illuminate\Support\Str;
+use App\Models\User;
 
 class FamilyController extends Controller
 {
@@ -77,5 +78,17 @@ class FamilyController extends Controller
         }
 
         return to_route('family.index')->with('error','You are not authorized to leave this family');
+    }
+
+    public function remove(Request $request, User $user){
+        $head = $request->user();
+
+        if ($head->role === 'head' && $user->role === 'member'){
+            $user->family_id = null;
+            $user->save();
+            return to_route('family.index')->with('success','Removed member from family');
+        }
+
+        return to_route('family.index')->with('error','You are not authorized to remove this member');
     }
 }
