@@ -72,7 +72,7 @@
                                             <a href="" class="text-blue-600 hover:text-blue-900">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="" method="POST" class="inline-block">
+                                            <form action="{{ route('category.destroy', $category) }}" method="POST" class="inline-block">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="text-red-600 hover:text-red-900" onclick="return confirm('Are you sure you want to delete this category?')">

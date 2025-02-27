@@ -36,4 +36,10 @@ class CategoryController extends Controller
 
         return back()->with('error','Category could not be created');
     }
+
+    public function destroy(Category $category){
+        $category->delete();
+
+        return to_route('category.index')->with('success','Category deleted successfully');
+    }
 }
