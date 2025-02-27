@@ -44,4 +44,14 @@ class AuthController extends Controller
 
         return to_route('auth.login')->with('error','Invalid credentials, try again');
     }
+
+    public function logout(Request $request){
+
+        if ($request->user()){
+            Auth::logout();
+            return to_route('auth.login')->with('success','Logged out');
+        }
+
+        return to_route('auth.login')->with('error','You are not logged in');
+    }
 }

@@ -9,6 +9,7 @@ Route::controller(AuthController::class)->group(function(){
 
     Route::post('/signup', 'register')->name('auth.signup.post');
     Route::post('/login', 'login')->name('auth.login.post');
+    Route::get('/logout','logout')->name('auth.logout');
 
 });
 

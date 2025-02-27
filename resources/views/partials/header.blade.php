@@ -10,9 +10,17 @@
             <a href="#goals" class="text-gray-600 hover:text-gray-800">Goals</a>
             <a href="#family" class="text-gray-600 hover:text-gray-800">Family</a>
         </nav>
-        <div class="space-x-4">
-            <a href="#login" class="inline-block bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300">Login</a>
-            <a href="#signup" class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Signup</a>
-        </div>
+
+        @if (Auth::user())
+            <a href="{{ route('auth.logout') }}"
+                class="inline-block bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300">Logout</a>
+        @else
+            <div class="space-x-4">
+                <a href="{{ route('auth.login') }}"
+                    class="inline-block bg-gray-200 text-gray-700 py-2 px-4 rounded hover:bg-gray-300">Login</a>
+                <a href="{{ route('auth.signup') }}"
+                    class="inline-block bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Signup</a>
+            </div>
+        @endif
     </div>
 </header>
