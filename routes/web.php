@@ -22,7 +22,7 @@ Route::controller(FamilyController::class)->group(function(){
     Route::get('/family','index')->name('family.index');
     Route::post('/family/create','store')->name('family.create');
     Route::post('/family/join', 'join')->name('family.join');
-    Route::post('/family/destroy', 'destroy')->name('family.destroy');
+    Route::delete('/family/destroy', 'destroy')->name('family.destroy');
     Route::post('/family/leave', 'leave')->name('family.leave');
     Route::post('/family/remove/{user}', 'remove')->name('family.remove');
 });
