@@ -5,8 +5,8 @@
 @section('content')
 <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-sm mx-auto mt-24">
     <h2 class="text-2xl font-bold mb-6 text-center">Log In</h2>
-    <form action="#" method="POST">
-
+    <form action="{{ route('auth.login.post') }}" method="POST">
+        @csrf
         <div class="mb-4">
             <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
             <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Enter your email" required>

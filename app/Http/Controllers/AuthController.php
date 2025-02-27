@@ -31,4 +31,17 @@ class AuthController extends Controller
 
         return to_route('auth.login')->with('success', 'Account created successfully');
     }
+
+    public function login(Request $request){
+        $data = $request->validate([
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string'
+        ]);
+
+        if (Auth::attempt($data)) {
+            return to_route('dashboard')->with('success','Logged in');
+        }
+
+        return to_route('auth.login')->with('error','Invalid credentials, try again');
+    }
 }

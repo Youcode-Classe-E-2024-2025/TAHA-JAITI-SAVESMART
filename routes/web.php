@@ -8,5 +8,10 @@ Route::controller(AuthController::class)->group(function(){
     Route::get('/signup', 'signupForm')->name('auth.signup');
 
     Route::post('/signup', 'register')->name('auth.signup.post');
-    
+    Route::post('/login', 'login')->name('auth.login.post');
+
 });
+
+Route::get('/dashboard', function (){
+    return view('index');
+})->name('dashboard');
