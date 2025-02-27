@@ -64,4 +64,18 @@ class FamilyController extends Controller
 
         return to_route('family.index')->with('error','You are not authorized to delete this family');
     }
+
+    public function leave(Request $request){
+        $user = $request->user();
+
+        $family = Family::where('id', '=', $user->family_id)->first();
+
+        if ($family && $user->role === 'member'){
+            $user->family_id = null;
+            $user->save();
+            return to_route('family.index')->with('success','Left family!');
+        }
+
+        return to_route('family.index')->with('error','You are not authorized to leave this family');
+    }
 }

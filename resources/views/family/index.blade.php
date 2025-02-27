@@ -16,7 +16,7 @@
                         </button>
                     </form>
                 @else
-                <form action="{{ route('family.destroy') }}" method="POST">
+                <form action="{{ route('family.leave') }}" method="POST">
                     @csrf
                     <button>
                         Leave Family
