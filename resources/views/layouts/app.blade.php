@@ -1,6 +1,7 @@
 <!-- resources/views/layouts/app.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +14,9 @@
     @include('partials.header')
 
     <!-- Main Content Area -->
-    <main class="flex-1 w-full p-6">
+    <main class="flex-1 w-full p-6 mt-20">
+        @include('partials.message')
+
         @yield('content')
     </main>
 

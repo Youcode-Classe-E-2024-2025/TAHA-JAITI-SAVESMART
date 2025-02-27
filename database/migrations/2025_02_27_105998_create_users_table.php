@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('family_id')->nullable()->constrained()->nullOnDelete();
-            $table->enum('role', ['head', 'member'])->default('member');
+            $table->enum('role', ['head', 'member'])->default('head');
             $table->timestamps();
         });
 
