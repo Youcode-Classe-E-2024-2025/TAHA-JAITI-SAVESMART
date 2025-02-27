@@ -56,10 +56,11 @@
                 </form>
 
                 <!-- Join Family Form -->
-                <form action="#" method="POST">
+                <form action="{{ route('family.join') }}" method="POST">
+                    @csrf
                     <div class="mb-4">
-                        <label for="family_code" class="block text-gray-700 text-sm font-bold mb-2">Family Code</label>
-                        <input type="text" id="family_code" name="family_code"
+                        <label for="code" class="block text-gray-700 text-sm font-bold mb-2">Family Code</label>
+                        <input type="text" id="family_code" name="code"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                             placeholder="Enter family code" required>
                     </div>

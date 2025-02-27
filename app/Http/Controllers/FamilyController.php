@@ -34,4 +34,18 @@ class FamilyController extends Controller
 
         return to_route('family.index')->with('error','Failed creating family, try again');
     }
+
+    public function join(Request $request){
+        $user = $request->user();
+        $family = Family::where('code', '=', $request->code)->first();
+
+        if ($family && $user){
+            $user->family_id = $family->id;
+            $user->role = 'member';
+            $user->save();
+            return to_route('family.index')->with('success','Joined family!');
+        }
+
+        return to_route('family.index')->with('error','Invalid family code');
+    }
 }
