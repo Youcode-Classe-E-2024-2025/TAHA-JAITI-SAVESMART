@@ -8,7 +8,7 @@
             <a href="#dashboard" class="text-gray-600 hover:text-gray-800">Dashboard</a>
             <a href="#transactions" class="text-gray-600 hover:text-gray-800">Transactions</a>
             <a href="#goals" class="text-gray-600 hover:text-gray-800">Goals</a>
-            <a href="#family" class="text-gray-600 hover:text-gray-800">Family</a>
+            <a href="{{ route('family.index') }}" class="text-gray-600 hover:text-gray-800">Family</a>
         </nav>
 
         @if (Auth::user())

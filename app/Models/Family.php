@@ -9,4 +9,8 @@ class Family extends Model
     //
     protected $table = "families";
     protected $fillable = ['name', 'code'];
+
+    public function users(){
+        return $this->hasMany(User::class);
+    }
 }
