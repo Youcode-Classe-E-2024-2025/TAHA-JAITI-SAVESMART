@@ -48,4 +48,20 @@ class FamilyController extends Controller
 
         return to_route('family.index')->with('error','Invalid family code');
     }
+
+    public function destroy(Request $request){
+        $user = $request->user();
+
+        $family = Family::where('id', '=', $user->family_id)->first();
+
+        if ($family && $user->role === 'head'){
+            $family->delete();
+            $user->role = 'member';
+            $user->family_id = null;
+            $user->save();
+            return to_route('family.index')->with('success','Family deleted successfully');
+        }
+
+        return to_route('family.index')->with('error','You are not authorized to delete this family');
+    }
 }

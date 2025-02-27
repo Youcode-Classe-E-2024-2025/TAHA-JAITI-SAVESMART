@@ -22,4 +22,5 @@ Route::controller(FamilyController::class)->group(function(){
     Route::get('/family','index')->name('family.index');
     Route::post('/family/create','store')->name('family.create');
     Route::post('/family/join', 'join')->name('family.join');
+    Route::post('/family/destroy', 'destroy')->name('family.destroy');
 });
