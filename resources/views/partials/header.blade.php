@@ -23,7 +23,7 @@
                         <i class="fas fa-chart-pie mr-2"></i>
                         Dashboard
                     </a>
-                    <a href=""
+                    <a href="{{ route('transaction.index') }}"
                         class="flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 {{ request()->routeIs('transactions') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
                         <i class="fas fa-exchange-alt mr-2"></i>
                         Transactions

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function (){
@@ -29,3 +31,6 @@ Route::controller(FamilyController::class)->group(function(){
     Route::post('/family/leave', 'leave')->name('family.leave');
     Route::delete('/family/remove/{user}', 'remove')->name('family.remove');
 });
+
+Route::resource('transaction', TransactionController::class);
+Route::resource('category', CategoryController::class);
