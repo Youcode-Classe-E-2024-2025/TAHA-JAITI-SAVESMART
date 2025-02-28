@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('cover');
-            $table->enum('status', ['active','done']);
+            $table->enum('status', ['active','done'])->default('active');
             $table->decimal('target', 10, 2);
             $table->decimal('current_amount',10,2);
             $table->date('deadline');

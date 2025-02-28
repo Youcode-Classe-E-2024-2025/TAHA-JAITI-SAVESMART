@@ -8,7 +8,7 @@ class FinancialGoal extends Model
 {
     //
 
-    protected $fillables = [
+    protected $fillable = [
         'name',
         'description',
         'cover',
@@ -20,7 +20,7 @@ class FinancialGoal extends Model
         'family_id',
     ];
 
-    protected $casts = [
+    protected $cast = [
         'deadline' => 'date',
     ];
 
