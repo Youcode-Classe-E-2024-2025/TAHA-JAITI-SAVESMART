@@ -114,4 +114,20 @@ class TransactionController extends Controller
 
         return back()->with('error', 'Transaction could not be created, try again');
     }
+
+    public function destroy(Transaction $transaction)
+    {
+        $user = Auth::user();
+
+        if ($transaction->family_id && $transaction->family_id != $user->family_id) {
+            return back()->with('error', 'You are not authorized to delete this transaction');
+        }
+
+        if ($transaction->user_id != $user->id) {
+            return back()->with('error', 'You are not authorized to delete this transaction');
+        }
+
+        $transaction->delete();
+        return back()->with('success', 'Transaction deleted successfully');
+    }
 }

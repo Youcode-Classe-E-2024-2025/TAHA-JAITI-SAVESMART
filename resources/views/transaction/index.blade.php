@@ -194,7 +194,7 @@
                                                 class="text-indigo-600 hover:text-indigo-900">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('transaction.destroy', $transaction->id) }}"
+                                            <form action="{{ route('transaction.destroy', $transaction) }}"
                                                 method="POST" class="inline-block"
                                                 onsubmit="return confirm('Are you sure you want to delete this transaction?')">
                                                 @csrf
