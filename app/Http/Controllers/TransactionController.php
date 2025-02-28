@@ -131,7 +131,8 @@ class TransactionController extends Controller
         return back()->with('success', 'Transaction deleted successfully');
     }
 
-    public function edit (Transaction $transaction){
+    public function edit(Transaction $transaction)
+    {
         $user = Auth::user();
 
         $query = Category::query();
@@ -148,5 +149,43 @@ class TransactionController extends Controller
         $categories = $query->get();
 
         return view('transaction.edit', compact('transaction', 'categories'));
+    }
+
+    public function update(Request $request, Transaction $transaction)
+    {
+        $user = Auth::user();
+
+        if ($transaction->family_id && $transaction->family_id != $user->family_id) {
+            return back()->with('error', 'You are not authorized to update this transaction');
+        }
+
+        if ($transaction->user_id != $user->id) {
+            return back()->with('error', 'You are not authorized to update this transaction');
+        }
+
+        $request->validate([
+            "name" => "required|string|min:3|max:255",
+            "amount" => "required|numeric",
+            "transaction_date" => "required|date",
+            "type" => "required|in:expense,income",
+            "category_id" => "required|exists:categories,id",
+            "is_family" => "boolean",
+        ]);
+
+        $if = $transaction->update([
+            "name" => $request->name,
+            "amount" => $request->amount,
+            "transaction_date" => $request->transaction_date,
+            "type" => $request->type,
+            "category_id" => $request->category_id,
+            "user_id" => Auth::user()->id,
+            "family_id" => $request->is_family ? Auth::user()->family_id : null,
+        ]);
+
+        if ($if) {
+            return to_route('transaction.index')->with('success', 'Transaction updated successfully');
+        }
+
+        return back()->with('error','Transaction could not be updated, try again');
     }
 }

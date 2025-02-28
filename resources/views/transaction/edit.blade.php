@@ -28,7 +28,7 @@
                     <p class="mt-1 text-sm text-gray-500">Update the details of your transaction.</p>
                 </div>
                 <div class="p-6">
-                    <form action="{{ route('transaction.update', $transaction->id) }}" method="POST" class="space-y-6">
+                    <form action="{{ route('transaction.update', $transaction) }}" method="POST" class="space-y-6">
                         @csrf
                         @method('PUT')
 
@@ -139,6 +139,22 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <!-- Family Transaction Checkbox (if applicable) -->
+                        @if (auth()->user()->family_id)
+                            <div class="flex items-start">
+                                <div class="flex items-center h-5">
+                                    <input id="is_family" name="is_family" type="checkbox" value="1"
+                                        {{ $transaction->family_id ? 'checked' : '' }}
+                                        class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                                </div>
+                                <div class="ml-3 text-sm">
+                                    <label for="is_family" class="font-medium text-gray-700">Family Transaction</label>
+                                    <p class="text-gray-500">Share this transaction with your family members</p>
+                                </div>
+                            </div>
+                        @endif
+
 
                         <!-- Submit Button -->
                         <div class="flex items-center justify-end space-x-3 pt-4 border-t border-gray-100">
