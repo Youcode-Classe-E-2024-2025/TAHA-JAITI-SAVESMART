@@ -130,4 +130,23 @@ class TransactionController extends Controller
         $transaction->delete();
         return back()->with('success', 'Transaction deleted successfully');
     }
+
+    public function edit (Transaction $transaction){
+        $user = Auth::user();
+
+        $query = Category::query();
+
+        if ($user->family_id) {
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                    ->orWhere('family_id', $user->family_id);
+            });
+        } else {
+            $query->where('user_id', $user->id);
+        }
+
+        $categories = $query->get();
+
+        return view('transaction.edit', compact('transaction', 'categories'));
+    }
 }
