@@ -11,9 +11,7 @@ class TransactionController extends Controller
 {
     public function index(Request $request)
     {
-
         $user = Auth::user();
-
         $query = Transaction::query();
 
         $viewMode = $request->input('view_mode', 'personal');
@@ -26,16 +24,15 @@ class TransactionController extends Controller
                     $query->where('family_id', $user->family_id);
                     break;
                 case 'all':
-                    $query->where('user_id', $user->id)
-                        ->orWhere('family_id', $user->family_id);
-                    break;
-                default;
+                    $query->where(function ($q) use ($user) {
+                        $q->where('user_id', $user->id)
+                            ->orWhere('family_id', $user->family_id);
+                    });
                     break;
             }
         } else {
             $query->where('user_id', $user->id);
         }
-
 
         $dateRange = $request->input('date_range', 'all');
         switch ($dateRange) {
@@ -51,22 +48,40 @@ class TransactionController extends Controller
             case 'year':
                 $query->whereBetween('transaction_date', [now()->startOfYear(), now()->endOfYear()]);
                 break;
-            default:
-                break;
         }
 
+        $query->when($request->filled('search'), function ($q) use ($request) {
+            $q->where('name', 'ILIKE', '%' . $request->input('search') . '%');
+        });
+
+        $query->when($request->filled('type'), function ($q) use ($request) {
+            $q->where('type', $request->input('type'));
+        });
 
         $transactions = $query->with(['category', 'user'])
-            ->orderBy('transaction_date', 'desc')->paginate(10);
+            ->orderBy('transaction_date', 'desc')
+            ->paginate(10);
 
         return view("transaction.index", compact("transactions"));
     }
+
 
     public function create()
     {
         $user = Auth::user();
 
-        $categories = Category::where("user_id", $user->id)->orWhere("family_id", $user->family_id)->get();
+        $query = Category::query();
+
+        if ($user->family_id) {
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                    ->orWhere('family_id', $user->family_id);
+            });
+        } else {
+            $query->where('user_id', $user->id);
+        }
+
+        $categories = $query->get();
 
         return view("transaction.create", compact("categories"));
     }

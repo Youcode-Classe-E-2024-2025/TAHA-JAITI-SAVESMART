@@ -33,17 +33,23 @@
                     <p class="mt-1 text-sm text-gray-500">Refine the transaction list to find what you're looking for.</p>
                 </div>
                 <div class="p-6">
-                    <form action="{{ route('transaction.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <form action="{{ route('transaction.index') }}" method="GET"
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         <!-- Date Range -->
                         <div>
                             <label for="date_range" class="block text-sm font-medium text-gray-700 mb-1">Date Range</label>
                             <select id="date_range" name="date_range"
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                <option value="all" {{ request('date_range') == 'all' ? 'selected' : '' }}>All Time</option>
-                                <option value="today" {{ request('date_range') == 'today' ? 'selected' : '' }}>Today</option>
-                                <option value="week" {{ request('date_range') == 'week' ? 'selected' : '' }}>This Week</option>
-                                <option value="month" {{ request('date_range') == 'month' ? 'selected' : '' }}>This Month</option>
-                                <option value="year" {{ request('date_range') == 'year' ? 'selected' : '' }}>This Year</option>
+                                <option value="all" {{ request('date_range') == 'all' ? 'selected' : '' }}>All Time
+                                </option>
+                                <option value="today" {{ request('date_range') == 'today' ? 'selected' : '' }}>Today
+                                </option>
+                                <option value="week" {{ request('date_range') == 'week' ? 'selected' : '' }}>This Week
+                                </option>
+                                <option value="month" {{ request('date_range') == 'month' ? 'selected' : '' }}>This Month
+                                </option>
+                                <option value="year" {{ request('date_range') == 'year' ? 'selected' : '' }}>This Year
+                                </option>
                             </select>
                         </div>
 
@@ -56,7 +62,8 @@
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">All Types</option>
                                 <option value="income" {{ request('type') == 'income' ? 'selected' : '' }}>Income</option>
-                                <option value="expense" {{ request('type') == 'expense' ? 'selected' : '' }}>Expense</option>
+                                <option value="expense" {{ request('type') == 'expense' ? 'selected' : '' }}>Expense
+                                </option>
                             </select>
                         </div>
 
@@ -74,16 +81,19 @@
                         </div>
 
                         <!-- Show Family Transactions (if applicable) -->
-                        @if(auth()->user()->family_id)
-                        <div>
-                            <label for="view_mode" class="block text-sm font-medium text-gray-700 mb-1">View</label>
-                            <select id="view_mode" name="view_mode"
-                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                <option value="personal" {{ request('view_mode') == 'personal' ? 'selected' : '' }}>My Transactions</option>
-                                <option value="family" {{ request('view_mode') == 'family' ? 'selected' : '' }}>Family Transactions</option>
-                                <option value="all" {{ request('view_mode') == 'all' ? 'selected' : '' }}>All Transactions</option>
-                            </select>
-                        </div>
+                        @if (auth()->user()->family_id)
+                            <div>
+                                <label for="view_mode" class="block text-sm font-medium text-gray-700 mb-1">View</label>
+                                <select id="view_mode" name="view_mode"
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                    <option value="personal" {{ request('view_mode') == 'personal' ? 'selected' : '' }}>My
+                                        Transactions</option>
+                                    <option value="family" {{ request('view_mode') == 'family' ? 'selected' : '' }}>Family
+                                        Transactions</option>
+                                    <option value="all" {{ request('view_mode') == 'all' ? 'selected' : '' }}>All
+                                        Transactions</option>
+                                </select>
+                            </div>
                         @endif
 
                         <!-- Filter Buttons -->
@@ -105,12 +115,13 @@
                 <div class="p-6 border-b border-gray-100 flex items-center justify-between">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">Transactions</h3>
-                        <p class="mt-1 text-sm text-gray-500">Showing {{ $transactions->firstItem() ?? 0 }} - {{ $transactions->lastItem() ?? 0 }} of {{ $transactions->total() ?? 0 }} transactions</p>
+                        <p class="mt-1 text-sm text-gray-500">Showing {{ $transactions->firstItem() ?? 0 }} -
+                            {{ $transactions->lastItem() ?? 0 }} of {{ $transactions->total() ?? 0 }} transactions</p>
                     </div>
                     <div class="flex space-x-2">
                         {{-- <a href="{{ route('transaction.export', request()->query()) }}" class="inline-flex items-center text-sm font-medium text-blue-600 hover:text-blue-500"> --}}
-                            <i class="fas fa-file-export mr-1"></i>
-                            Export
+                        <i class="fas fa-file-export mr-1"></i>
+                        Export
                         </a>
                     </div>
                 </div>
@@ -120,22 +131,28 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Date
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Name
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Category
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Amount
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     User
                                 </th>
-                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                <th scope="col"
+                                    class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Actions
                                 </th>
                             </tr>
@@ -150,32 +167,35 @@
                                         <div class="text-sm font-medium text-gray-900">{{ $transaction->name }}</div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                        <span
+                                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
                                             {{ $transaction->category->type == 'personal' ? 'bg-blue-100 text-blue-800' : 'bg-purple-100 text-purple-800' }}">
                                             {{ $transaction->category->name }}
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm
+                                    <td
+                                        class="px-6 py-4 whitespace-nowrap text-sm
                                         {{ $transaction->type == 'income' ? 'text-green-600 font-medium' : 'text-red-600 font-medium' }}">
                                         {{ $transaction->type == 'income' ? '+' : '-' }}
                                         {{ number_format($transaction->amount, 2) }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                        @if(isset($viewMode) && $viewMode != 'personal')
-                                            {{ $transaction->user()->name }}
-                                            @if($transaction->family_id)
-                                                <span class="ml-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-purple-100 text-purple-800">
-                                                    <i class="fas fa-users text-xs mr-1"></i> Family
-                                                </span>
-                                            @endif
+                                        {{ $transaction->user->name }}
+                                        @if ($transaction->family_id)
+                                            <span
+                                                class="ml-1 inline-flex items-center px-1.5 py-0.5 rounded-full text-xs bg-purple-100 text-purple-800">
+                                                <i class="fas fa-users text-xs mr-1"></i> Family
+                                            </span>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-3">
-                                            <a href="{{ route('transaction.edit', $transaction->id) }}" class="text-indigo-600 hover:text-indigo-900">
+                                            <a href="{{ route('transaction.edit', $transaction->id) }}"
+                                                class="text-indigo-600 hover:text-indigo-900">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('transaction.destroy', $transaction->id) }}" method="POST" class="inline-block"
+                                            <form action="{{ route('transaction.destroy', $transaction->id) }}"
+                                                method="POST" class="inline-block"
                                                 onsubmit="return confirm('Are you sure you want to delete this transaction?')">
                                                 @csrf
                                                 @method('DELETE')
@@ -190,12 +210,15 @@
                                 <tr>
                                     <td colspan="6" class="px-6 py-12 text-center">
                                         <div class="flex flex-col items-center justify-center">
-                                            <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-3">
+                                            <div
+                                                class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center mb-3">
                                                 <i class="fas fa-receipt text-blue-600 text-xl"></i>
                                             </div>
                                             <h3 class="text-lg font-medium text-gray-900 mb-1">No transactions found</h3>
-                                            <p class="text-sm text-gray-500 mb-4">Start adding your financial transactions to track your spending.</p>
-                                            <a href="{{ route('transaction.create') }}" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                                            <p class="text-sm text-gray-500 mb-4">Start adding your financial transactions
+                                                to track your spending.</p>
+                                            <a href="{{ route('transaction.create') }}"
+                                                class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
                                                 <i class="fas fa-plus mr-2"></i>
                                                 Add First Transaction
                                             </a>
