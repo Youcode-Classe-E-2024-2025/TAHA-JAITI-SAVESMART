@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FamilyController;
+use App\Http\Controllers\FinancialGoalController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,3 +35,4 @@ Route::controller(FamilyController::class)->group(function(){
 
 Route::resource('transaction', TransactionController::class);
 Route::resource('category', CategoryController::class);
+Route::resource('goal', FinancialGoalController::class);
