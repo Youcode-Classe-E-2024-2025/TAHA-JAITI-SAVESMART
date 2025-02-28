@@ -51,4 +51,8 @@ class FinancialGoalController extends Controller
 
         return to_route('goal.index')->with('error','Failed to create financial goal');
     }
+
+    public function show(FinancialGoal $goal){
+        return view('goal.show', compact('goal'));
+    }
 }

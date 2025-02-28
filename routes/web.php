@@ -36,3 +36,7 @@ Route::controller(FamilyController::class)->group(function(){
 Route::resource('transaction', TransactionController::class);
 Route::resource('category', CategoryController::class);
 Route::resource('goal', FinancialGoalController::class);
+Route::controller(FinancialGoalController::class)->group(function(){
+    Route::get('/goal/{goal}/mark','')->name('goal.markAsDone');
+    Route::post('/goal/{goal}/deposit','deposit')->name('goal.deposit');
+});
