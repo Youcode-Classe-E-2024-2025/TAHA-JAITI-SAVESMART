@@ -44,24 +44,7 @@
                                 <option value="week" {{ request('date_range') == 'week' ? 'selected' : '' }}>This Week</option>
                                 <option value="month" {{ request('date_range') == 'month' ? 'selected' : '' }}>This Month</option>
                                 <option value="year" {{ request('date_range') == 'year' ? 'selected' : '' }}>This Year</option>
-                                <option value="custom" {{ request('date_range') == 'custom' ? 'selected' : '' }}>Custom Range</option>
                             </select>
-                        </div>
-
-                        <!-- Custom Date Range (hidden by default) -->
-                        <div id="custom_date_container" class="hidden lg:col-span-2">
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label for="start_date" class="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
-                                    <input type="date" id="start_date" name="start_date" value="{{ request('start_date') }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                </div>
-                                <div>
-                                    <label for="end_date" class="block text-sm font-medium text-gray-700 mb-1">End Date</label>
-                                    <input type="date" id="end_date" name="end_date" value="{{ request('end_date') }}"
-                                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                                </div>
-                            </div>
                         </div>
 
 
@@ -231,23 +214,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const dateRangeSelect = document.getElementById('date_range');
-            const customDateContainer = document.getElementById('custom_date_container');
-
-            // Function to toggle custom date fields
-            function toggleCustomDateFields() {
-                if (dateRangeSelect.value === 'custom') {
-                    customDateContainer.classList.remove('hidden');
-                } else {
-                    customDateContainer.classList.add('hidden');
-                }
-            }
-
-            dateRangeSelect.addEventListener('change', toggleCustomDateFields);
-            toggleCustomDateFields();
-        });
-    </script>
 @endsection
