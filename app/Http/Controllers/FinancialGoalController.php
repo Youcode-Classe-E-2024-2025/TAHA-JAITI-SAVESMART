@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\FinancialGoal;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,7 +70,23 @@ class FinancialGoalController extends Controller
 
     public function show(FinancialGoal $goal)
     {
-        return view('goal.show', compact('goal'));
+        $user = Auth::user();
+
+        $query = Category::query();
+
+        if ($user->family_id) {
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                    ->orWhere('family_id', $user->family_id);
+            });
+        } else {
+            $query->where('user_id', $user->id);
+        }
+
+        $categories = $query->get();
+
+
+        return view('goal.show', compact(['goal', 'categories']));
     }
 
     public function destroy(FinancialGoal $goal)
@@ -82,5 +100,38 @@ class FinancialGoalController extends Controller
         $goal->delete();
 
         return to_route('goal.index')->with('success', 'Goal deleted successfully');
+    }
+
+    public function deposit(Request $request ,FinancialGoal $goal){
+        $user = Auth::user();
+
+        if ($goal->user_id != $user->id) {
+            return back()->with('error', 'You are not authorized to deposit to this goal');
+        }
+
+        $request->validate([
+            'amount' => 'required|numeric',
+            'category_id' => 'required|exists:categories,id',
+        ]);
+
+        $goal->current_amount += $request->amount;
+        $goal->save();
+
+
+        $transaction = Transaction::create([
+            'name' => "Deposit to {$goal->name}",
+            'amount' => $request->amount,
+            'transaction_date' => now(),
+            'type' => 'expense',
+            'category_id' => $request->category_id,
+            'user_id' => $user->id,
+            "family_id" => $request->is_family ? $user->family_id : null,
+        ]);
+
+        if ($transaction) {
+            return back()->with('success', 'Deposit successful');
+        }
+
+        return back()->with('error', 'Failed to deposit to goal');
     }
 }

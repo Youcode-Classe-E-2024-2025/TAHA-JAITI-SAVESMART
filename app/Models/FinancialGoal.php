@@ -24,6 +24,7 @@ class FinancialGoal extends Model
         'deadline' => 'date',
     ];
 
+
     public function user()
     {
         return $this->belongsTo(User::class);
