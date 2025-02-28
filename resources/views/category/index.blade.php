@@ -37,7 +37,7 @@
                 </div>
             </div>
 
-            @if(count($categories ?? []) > 0)
+            @if(count($categories) > 0)
                 <div class="overflow-x-auto">
                     <table class="w-full">
                         <thead>
@@ -49,7 +49,7 @@
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-100">
-                            @foreach($categories ?? [] as $category)
+                            @foreach($categories as $category)
                                 <tr class="hover:bg-gray-50 transition-colors duration-200">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center">

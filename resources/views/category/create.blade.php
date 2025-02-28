@@ -155,25 +155,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const familyRadio = document.getElementById('family');
-            const personalRadio = document.getElementById('personal');
-            const familySelectSection = document.getElementById('familySelectSection');
-
-            function toggleFamilySelect() {
-                if (familyRadio.checked) {
-                    familySelectSection.classList.remove('hidden');
-                } else {
-                    familySelectSection.classList.add('hidden');
-                }
-            }
-
-            familyRadio.addEventListener('change', toggleFamilySelect);
-            personalRadio.addEventListener('change', toggleFamilySelect);
-
-            toggleFamilySelect();
-        });
-    </script>
 @endsection
