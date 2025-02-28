@@ -207,7 +207,7 @@
                                     ),
                                 );
                                 $amountRemaining = $goal->target - $goal->current_amount;
-                                $monthlyTarget = $amountRemaining / $monthsRemaining;
+                                $monthlyTarget = round($amountRemaining / $monthsRemaining, 2);
                             @endphp
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between py-2 border-b border-gray-100">
@@ -215,7 +215,7 @@
                                         <i class="fas fa-calendar-alt text-gray-400 mr-3 w-5"></i>
                                         <span class="text-sm text-gray-500">Months Remaining</span>
                                     </div>
-                                    <span class="text-sm font-medium text-gray-900">{{ $monthsRemaining }}</span>
+                                    <span class="text-sm font-medium text-gray-900">{{ $monthsRemaining }} months</span>
                                 </div>
 
                                 <div class="flex items-center justify-between py-2 border-b border-gray-100">
@@ -244,38 +244,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <!-- Recent Transactions (Optional) -->
-                    @if(isset($transactions) && count($transactions) > 0)
-                    <div class="bg-white rounded-xl border border-gray-200 shadow-sm p-5 mb-8">
-                        <h3 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-                            <i class="fas fa-receipt text-purple-500 mr-2"></i>
-                            Recent Allocations
-                        </h3>
-                        <div class="overflow-x-auto">
-                            <table class="min-w-full divide-y divide-gray-200">
-                                <thead class="bg-gray-50">
-                                    <tr>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Source</th>
-                                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Notes</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="bg-white divide-y divide-gray-200">
-                                    @foreach($transactions as $transaction)
-                                    <tr>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $transaction->created_at->format('M d, Y') }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-green-600">${{ number_format($transaction->amount, 2) }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $transaction->source }}</td>
-                                        <td class="px-6 py-4 text-sm text-gray-500">{{ $transaction->notes }}</td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    @endif
                 </div>
             </div>
 
@@ -311,7 +279,7 @@
                                     Add funds to your "{{ $goal->name }}" goal. Current progress: {{ round(($goal->current_amount / $goal->target) * 100) }}%
                                 </p>
                             </div>
-                            <form action="{{ route('goal.deposit') }}" method="POST" id="allocationForm" class="mt-4">
+                            <form action="{{ route('goal.deposit', $goal) }}" method="POST" id="allocationForm" class="mt-4">
                                 @csrf
                                 <div class="mb-4">
                                     <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>

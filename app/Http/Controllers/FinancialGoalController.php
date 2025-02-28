@@ -55,4 +55,16 @@ class FinancialGoalController extends Controller
     public function show(FinancialGoal $goal){
         return view('goal.show', compact('goal'));
     }
+
+    public function destroy(FinancialGoal $goal){
+        $user = Auth::user();
+
+        if ($goal->user_id != $user->id){
+            return back()->with('error','You are not authorized to delete this goal');
+        }
+
+        $goal->delete();
+
+        return to_route('goal.index')->with('success','Goal deleted successfully');
+    }
 }

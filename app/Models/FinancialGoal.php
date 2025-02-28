@@ -20,7 +20,7 @@ class FinancialGoal extends Model
         'family_id',
     ];
 
-    protected $cast = [
+    protected $casts = [
         'deadline' => 'date',
     ];
 
