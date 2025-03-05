@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\FinancialGoalController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::get('/', function (){
     return view('home');
@@ -20,9 +22,7 @@ Route::controller(AuthController::class)->group(function(){
     Route::post('/logout','logout')->name('auth.logout');
 });
 
-Route::get('/dashboard', function (){
-    return view('index');
-})->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 Route::controller(FamilyController::class)->group(function(){
     Route::get('/family','index')->name('family.index');
