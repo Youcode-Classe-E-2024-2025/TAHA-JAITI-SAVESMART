@@ -18,12 +18,15 @@ class FinancialGoalController extends Controller
 
         if ($user->family_id) {
             $query->where('family_id', $user->family_id);
-            $query->orWhere('user_id', $user->family_id);
+            $query->orWhere('user_id', $user->id);
         } else {
             $query->where('user_id', $user->id);
         }
 
         $financialGoals =$query->orderBy('created_at','desc')->paginate(10);
+
+        FinancialGoal::whereColumn('current_amount', 'target')
+        ->update(['status' => 'done']);
 
         return view('goal.index', compact('financialGoals'));
     }
@@ -102,6 +105,10 @@ class FinancialGoalController extends Controller
         return to_route('goal.index')->with('success', 'Goal deleted successfully');
     }
 
+    public function edit(FinancialGoal $goal){
+        return view('goal.edit', compact('goal'));
+    }
+
     public function deposit(Request $request ,FinancialGoal $goal){
         $user = Auth::user();
 
@@ -114,13 +121,19 @@ class FinancialGoalController extends Controller
             'category_id' => 'required|exists:categories,id',
         ]);
 
-        $goal->current_amount += $request->amount;
+        $amount = $request->amount;
+
+        if ($request->amount > $goal->target){
+            $amount = $goal->target - $goal->current_amount;
+        }
+
+        $goal->current_amount += $amount;
         $goal->save();
 
 
         $transaction = Transaction::create([
             'name' => "Deposit to {$goal->name}",
-            'amount' => $request->amount,
+            'amount' => $amount,
             'transaction_date' => now(),
             'type' => 'expense',
             'category_id' => $request->category_id,

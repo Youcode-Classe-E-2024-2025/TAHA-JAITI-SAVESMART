@@ -73,17 +73,6 @@
                             <i class="fas fa-coins mr-2"></i>
                             Allocate Funds
                         </button>
-                        @if ($goal->status === 'active')
-                            <form action="{{ route('goal.markAsDone', $goal) }}" method="POST" class="inline">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit"
-                                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition">
-                                    <i class="fas fa-check-circle mr-2"></i>
-                                    Mark as Done
-                                </button>
-                            </form>
-                        @endif
                     </div>
 
                     <!-- Description -->
@@ -270,7 +259,7 @@
         </div>
     </div>
 
-    <!-- Allocation Modal (You would need to implement this) -->
+    <!-- Allocation Modal -->
     <div id="allocationModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
         <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
             <div class="fixed inset-0 transition-opacity" aria-hidden="true">

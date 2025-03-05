@@ -33,6 +33,11 @@
                         <i class="fas fa-bullseye mr-2"></i>
                         Goals
                     </a>
+                    <a href="{{ route('category.index') }}"
+                        class="flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 {{ request()->routeIs('goals') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
+                        <i class="fas fa-tag mr-2"></i>
+                        Categories
+                    </a>
                     <a href="{{ route('family.index') }}"
                         class="flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 {{ request()->routeIs('family.*') ? 'text-blue-600 bg-blue-50' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
                         <i class="fas fa-users mr-2"></i>
