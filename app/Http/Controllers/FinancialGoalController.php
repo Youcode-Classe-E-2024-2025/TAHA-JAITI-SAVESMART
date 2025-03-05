@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
-use App\Models\FinancialGoal;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use App\Models\FinancialGoal;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class FinancialGoalController extends Controller
 {
@@ -107,6 +108,48 @@ class FinancialGoalController extends Controller
 
     public function edit(FinancialGoal $goal){
         return view('goal.edit', compact('goal'));
+    }
+
+    public function update(Request $request, FinancialGoal $goal){
+        $user = Auth::user();
+
+        $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'description' => 'nullable|string|min:3|max:255',
+            'target' => 'required|numeric|min:0',
+            'current_amount' => 'nullable|numeric|min:0',
+            'deadline' => 'required|date',
+            'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'is_family' => 'nullable|boolean'
+        ]);
+
+        $updateData = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'target_amount' => $request->target,
+            'current_amount' => $request->current_amount ?? 0,
+            'deadline' => $request->deadline,
+        ];
+
+        if ($request->hasFile('cover')) {
+            if ($goal->cover_image && Storage::disk('public')->exists($goal->cover_image)) {
+                Storage::disk('public')->delete($goal->cover_image);
+            }
+
+            $updateData['cover_image'] = $request->file('cover')->store('covers', 'public');
+        }
+
+        if ($user->family_id) {
+            $updateData['is_family'] = $request->has('is_family');
+        }
+
+        $updated = $goal->update($updateData);
+
+        if ($updated) {
+            return to_route('goal.index')->with('success', 'Goal updated successfully');
+        }
+
+        return to_route('goal.index')->with('error', 'Failed to update financial goal');
     }
 
     public function deposit(Request $request ,FinancialGoal $goal){
