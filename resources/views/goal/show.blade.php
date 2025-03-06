@@ -68,11 +68,13 @@
                             <i class="fas fa-edit mr-2"></i>
                             Edit Goal
                         </a>
-                        <button id="openAllocationModal"
-                            class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition">
-                            <i class="fas fa-coins mr-2"></i>
-                            Allocate Funds
-                        </button>
+                        @if ($goal->status === 'active')
+                            <button id="openAllocationModal"
+                                class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition">
+                                <i class="fas fa-coins mr-2"></i>
+                                Allocate Funds
+                            </button>
+                        @endif
                     </div>
 
                     <!-- Description -->
@@ -340,7 +342,6 @@
         </div>
     </div>
 
-    <!-- JavaScript for Modal -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const modal = document.getElementById('allocationModal');

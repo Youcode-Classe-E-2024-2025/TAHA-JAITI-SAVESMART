@@ -126,7 +126,7 @@ class FinancialGoalController extends Controller
         $updateData = [
             'name' => $request->name,
             'description' => $request->description,
-            'target_amount' => $request->target,
+            'target' => $request->target,
             'current_amount' => $request->current_amount ?? 0,
             'deadline' => $request->deadline,
         ];
@@ -141,6 +141,10 @@ class FinancialGoalController extends Controller
 
         if ($user->family_id) {
             $updateData['is_family'] = $request->has('is_family');
+        }
+
+        if ($request->target > $request->current_amount){
+            $updateData['status'] = 'active';
         }
 
         $updated = $goal->update($updateData);
@@ -166,12 +170,19 @@ class FinancialGoalController extends Controller
 
         $amount = $request->amount;
 
-        if ($request->amount > $goal->target){
-            $amount = $goal->target - $goal->current_amount;
+        $remaining = $goal->target - $goal->current_amount;
+
+        if ($remaining < $amount) {
+            $amount = $remaining;
         }
 
         $goal->current_amount += $amount;
         $goal->save();
+
+        if ($goal->current_amount >= $goal->target){
+            $goal->status = 'done';
+            $goal->save();
+        }
 
 
         $transaction = Transaction::create([
