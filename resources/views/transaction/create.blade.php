@@ -36,10 +36,13 @@
                             <div class="col-span-2">
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Transaction Type</label>
                                 <div class="flex space-x-4">
-                                    <label class="relative flex items-center p-4 rounded-lg border cursor-pointer hover:bg-green-50 focus-within:ring-2 focus-within:ring-green-500 @error('type') border-red-300 @else border-gray-200 @enderror flex-1 transition-colors duration-150">
-                                        <input type="radio" name="type" value="income" class="sr-only" {{ old('type') == 'income' ? 'checked' : '' }} required>
+                                    <label
+                                        class="relative flex items-center p-4 rounded-lg border cursor-pointer hover:bg-green-50 focus-within:ring-2 focus-within:ring-green-500 @error('type') border-red-300 @else border-gray-200 @enderror flex-1 transition-colors duration-150">
+                                        <input type="radio" name="type" value="income" class="sr-only"
+                                            {{ old('type') == 'income' ? 'checked' : '' }} required>
                                         <div class="flex items-center">
-                                            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                                            <div
+                                                class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
                                                 <i class="fas fa-arrow-up text-green-600"></i>
                                             </div>
                                             <div>
@@ -47,13 +50,17 @@
                                                 <span class="block text-xs text-gray-500">Money you receive</span>
                                             </div>
                                         </div>
-                                        <div class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
+                                        <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+                                            aria-hidden="true"></div>
                                     </label>
 
-                                    <label class="relative flex items-center p-4 rounded-lg border cursor-pointer hover:bg-red-50 focus-within:ring-2 focus-within:ring-red-500 @error('type') border-red-300 @else border-gray-200 @enderror flex-1 transition-colors duration-150">
-                                        <input type="radio" name="type" value="expense" class="sr-only" {{ old('type') == 'expense' ? 'checked' : '' }} required>
+                                    <label
+                                        class="relative flex items-center p-4 rounded-lg border cursor-pointer hover:bg-red-50 focus-within:ring-2 focus-within:ring-red-500 @error('type') border-red-300 @else border-gray-200 @enderror flex-1 transition-colors duration-150">
+                                        <input type="radio" name="type" value="expense" class="sr-only"
+                                            {{ old('type') == 'expense' ? 'checked' : '' }} required>
                                         <div class="flex items-center">
-                                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                                            <div
+                                                class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
                                                 <i class="fas fa-arrow-down text-red-600"></i>
                                             </div>
                                             <div>
@@ -61,7 +68,8 @@
                                                 <span class="block text-xs text-gray-500">Money you spend</span>
                                             </div>
                                         </div>
-                                        <div class="absolute -inset-px rounded-lg border-2 pointer-events-none" aria-hidden="true"></div>
+                                        <div class="absolute -inset-px rounded-lg border-2 pointer-events-none"
+                                            aria-hidden="true"></div>
                                     </label>
                                 </div>
                                 @error('type')
@@ -73,7 +81,8 @@
                         <!-- Transaction Name and Amount - Consistent styling with goal form -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Transaction Name</label>
+                                <label for="name" class="block text-sm font-medium text-gray-700 mb-1">Transaction
+                                    Name</label>
                                 <input type="text" id="name" name="name" value="{{ old('name') }}" required
                                     class="w-full px-4 py-2 border @error('name') border-red-300 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
                                     placeholder="E.g., Salary, Grocery Shopping">
@@ -88,7 +97,8 @@
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500">$</span>
                                     </div>
-                                    <input type="number" id="amount" name="amount" value="{{ old('amount') }}" step="0.01" min="0.01" required
+                                    <input type="number" id="amount" name="amount" value="{{ old('amount') }}"
+                                        step="0.01" min="0.01" required
                                         class="pl-10 w-full px-4 py-2 border @error('amount') border-red-300 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm"
                                         placeholder="0.00">
                                 </div>
@@ -101,8 +111,10 @@
                         <!-- Date and Category -->
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label for="transaction_date" class="block text-sm font-medium text-gray-700 mb-1">Date</label>
-                                <input type="date" id="transaction_date" name="transaction_date" value="{{ old('transaction_date', now()->format('Y-m-d')) }}" required
+                                <label for="transaction_date"
+                                    class="block text-sm font-medium text-gray-700 mb-1">Date</label>
+                                <input type="date" id="transaction_date" name="transaction_date"
+                                    value="{{ old('transaction_date', now()->format('Y-m-d')) }}" required
                                     class="w-full px-4 py-2 border @error('transaction_date') border-red-300 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                                 @error('transaction_date')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
@@ -110,19 +122,19 @@
                             </div>
 
                             <div>
-                                <label for="category_id" class="block text-sm font-medium text-gray-700 mb-1">Category</label>
+                                <label for="category_id"
+                                    class="block text-sm font-medium text-gray-700 mb-1">Category</label>
                                 <select id="category_id" name="category_id" required
                                     class="w-full px-4 py-2 border @error('category_id') border-red-300 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
                                     <option value="">Select a category</option>
 
-                                    @if(isset($categories) && count($categories) > 0)
-                                        <optgroup label="Categories">
-                                            @foreach($categories as $category)
-                                                <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                                    {{ $category->name }}
-                                                </option>
-                                            @endforeach
-                                        </optgroup>
+                                    @if (isset($categories) && count($categories) > 0)
+                                        @foreach ($categories as $category)
+                                            <option value="{{ $category->id }}"
+                                                {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                                {{ $category->name }}
+                                            </option>
+                                        @endforeach
                                     @endif
                                 </select>
                                 @error('category_id')
@@ -132,10 +144,11 @@
                         </div>
 
                         <!-- Family Transaction Checkbox - Updated for visual consistency -->
-                        @if(auth()->user()->family_id)
+                        @if (auth()->user()->family_id)
                             <div class="flex items-start bg-gray-50 p-4 rounded-lg">
                                 <div class="flex items-center h-5">
-                                    <input id="is_family" name="is_family" type="checkbox" value="1" {{ old('is_family') ? 'checked' : '' }}
+                                    <input id="is_family" name="is_family" type="checkbox" value="1"
+                                        {{ old('is_family') ? 'checked' : '' }}
                                         class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
                                 </div>
                                 <div class="ml-3 text-sm">
@@ -179,81 +192,4 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Show/hide appropriate categories based on transaction type
-            const typeRadios = document.querySelectorAll('input[name="type"]');
-            const categorySelect = document.getElementById('category_id');
-            const incomeCategories = categorySelect.querySelector('optgroup[label="Categories"]');
-            const expenseCategories = categorySelect.querySelector('optgroup[label="Categories"]');
-
-            function updateCategoryVisibility() {
-                const selectedType = document.querySelector('input[name="type"]:checked')?.value;
-
-                if (incomeCategories && expenseCategories) {
-                    if (selectedType === 'income') {
-                        incomeCategories.style.display = '';
-                        expenseCategories.style.display = 'none';
-
-                        // Reset selection if currently selected option is now hidden
-                        const currentOption = categorySelect.options[categorySelect.selectedIndex];
-                        if (currentOption.parentElement === expenseCategories) {
-                            categorySelect.value = '';
-                        }
-                    } else if (selectedType === 'expense') {
-                        incomeCategories.style.display = 'none';
-                        expenseCategories.style.display = '';
-
-                        // Reset selection if currently selected option is now hidden
-                        const currentOption = categorySelect.options[categorySelect.selectedIndex];
-                        if (currentOption.parentElement === incomeCategories) {
-                            categorySelect.value = '';
-                        }
-                    } else {
-                        // Both visible if nothing selected yet
-                        incomeCategories.style.display = '';
-                        expenseCategories.style.display = '';
-                    }
-                }
-            }
-
-            // Initial update
-            updateCategoryVisibility();
-
-            // Update on change
-            typeRadios.forEach(radio => {
-                radio.addEventListener('change', updateCategoryVisibility);
-            });
-
-            // Add visual feedback when transaction type is selected
-            typeRadios.forEach(radio => {
-                radio.addEventListener('change', function() {
-                    // First, reset all labels
-                    document.querySelectorAll('input[name="type"]').forEach(r => {
-                        const label = r.closest('label');
-                        if (r.value === 'income') {
-                            label.classList.remove('bg-green-50', 'border-green-300');
-                        } else {
-                            label.classList.remove('bg-red-50', 'border-red-300');
-                        }
-                    });
-
-                    // Then highlight the selected one
-                    const label = this.closest('label');
-                    if (this.value === 'income') {
-                        label.classList.add('bg-green-50', 'border-green-300');
-                    } else {
-                        label.classList.add('bg-red-50', 'border-red-300');
-                    }
-                });
-            });
-
-            // Trigger change event for any pre-selected radio
-            const selectedRadio = document.querySelector('input[name="type"]:checked');
-            if (selectedRadio) {
-                selectedRadio.dispatchEvent(new Event('change'));
-            }
-        });
-    </script>
 @endsection

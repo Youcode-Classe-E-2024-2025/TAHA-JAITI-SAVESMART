@@ -10,7 +10,21 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = Category::paginate(10);
+
+        $user = Auth::user();
+
+        $query = Category::query();
+
+        if ($user->family_id) {
+            $query->where(function ($q) use ($user) {
+                $q->where('user_id', $user->id)
+                    ->orWhere('family_id', $user->family_id);
+            });
+        } else {
+            $query->where('user_id', $user->id);
+        }
+
+        $categories = $query->paginate(6);
 
         return view("category.index", compact("categories"));
     }
