@@ -59,7 +59,7 @@ class TransactionController extends Controller
         });
 
         $transactions = $query->with(['category', 'user'])
-            ->orderBy('transaction_date', 'desc')
+            ->orderBy('created_at', 'desc')
             ->paginate(10);
 
         return view("transaction.index", compact("transactions"));
