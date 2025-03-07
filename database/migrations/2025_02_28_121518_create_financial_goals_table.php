@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('description');
             $table->string('cover');
             $table->enum('status', ['active','done'])->default('active');
+            $table->enum('type', ['needs','wants','savings'])->default('needs');
             $table->decimal('target', 10, 2);
             $table->decimal('current_amount',10,2);
             $table->date('deadline');

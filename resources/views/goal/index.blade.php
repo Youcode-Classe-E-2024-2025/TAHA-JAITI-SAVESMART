@@ -32,6 +32,13 @@
                                 {{ ucfirst($goal->status) }}
                             </span>
                         </div>
+
+                        <div class="absolute top-3 left-3">
+                            <span
+                                class="px-2.5 py-1 text-xs font-semibold rounded-full {{ $goal->type === 'needs' ? 'bg-green-100 text-green-700' : ($goal->type === 'wants' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700') }}">
+                                {{ ucfirst($goal->type) }}
+                            </span>
+                        </div>
                     </div>
 
                     <!-- Goal Content -->

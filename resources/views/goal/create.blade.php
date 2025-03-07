@@ -60,7 +60,8 @@
 
                             <!-- Cover Image - Updated for better visual appeal -->
                             <div>
-                                <label for="cover" class="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>
+                                <label for="cover" class="block text-sm font-medium text-gray-700 mb-1">Cover
+                                    Image</label>
                                 <div class="mt-1 flex items-center">
                                     <div class="w-full">
                                         <label
@@ -90,10 +91,11 @@
                     <!-- Financial Details -->
                     <div>
                         <h2 class="text-md font-medium text-gray-800 mb-4">Financial Details</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Target Amount -->
                             <div>
-                                <label for="target" class="block text-sm font-medium text-gray-700 mb-1">Target Amount ($)</label>
+                                <label for="target" class="block text-sm font-medium text-gray-700 mb-1">Target Amount
+                                    ($)</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm">$</span>
@@ -110,7 +112,8 @@
 
                             <!-- Current Amount -->
                             <div>
-                                <label for="current_amount" class="block text-sm font-medium text-gray-700 mb-1">Current Amount ($)</label>
+                                <label for="current_amount" class="block text-sm font-medium text-gray-700 mb-1">Current
+                                    Amount ($)</label>
                                 <div class="mt-1 relative rounded-md shadow-sm">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <span class="text-gray-500 sm:text-sm">$</span>
@@ -133,6 +136,21 @@
                                 @error('deadline')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
+                            </div>
+
+                            <!-- Type -->
+                            <div>
+                                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                                <select name="type" id="type"
+                                    class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="needs">Needs</option>
+                                    <option value="wants">Wants</option>
+                                    <option value="savings">Savings</option>
+                                </select>
+                                @error('type')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                                <p class="text-sm text-gray-500 mb-2">Select the type of goal you're setting.</p>
                             </div>
                         </div>
                     </div>
@@ -173,8 +191,7 @@
 
                     <!-- Form Actions -->
                     <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-100">
-                        <a href="{{ route('goal.index') }}"
-                            class="text-sm text-gray-600 hover:text-gray-900">
+                        <a href="{{ route('goal.index') }}" class="text-sm text-gray-600 hover:text-gray-900">
                             Cancel
                         </a>
                         <button type="submit"

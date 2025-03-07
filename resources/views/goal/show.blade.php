@@ -54,6 +54,15 @@
                         </span>
                     </div>
 
+                    <!-- Status Badge -->
+                    <div class="absolute top-4 left-4">
+                        <span
+                            class="px-3 py-1.5 text-sm font-semibold rounded-full {{ $goal->type === 'needs' ? 'bg-green-100 text-green-700' : ($goal->type === 'wants' ? 'bg-blue-100 text-blue-700' : 'bg-purple-100 text-purple-700') }}">
+                            <i class="fas {{ $goal->type === 'needs' ? 'fa-circle-play' : 'fa-circle-check' }} mr-1"></i>
+                            {{ ucfirst($goal->type) }}
+                        </span>
+                    </div>
+
                     <!-- Goal Title (positioned at bottom of cover) -->
                     <div class="absolute bottom-0 left-0 right-0 p-6">
                         <h1 class="text-3xl font-bold text-white">{{ $goal->name }}</h1>

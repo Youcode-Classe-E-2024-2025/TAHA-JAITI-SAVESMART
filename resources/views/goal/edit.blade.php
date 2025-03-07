@@ -98,7 +98,7 @@
                     <!-- Financial Details -->
                     <div>
                         <h2 class="text-md font-medium text-gray-800 mb-4">Financial Details</h2>
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <!-- Target Amount -->
                             <div>
                                 <label for="target" class="block text-sm font-medium text-gray-700 mb-1">Target Amount
@@ -145,6 +145,21 @@
                                 @error('deadline')
                                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                                 @enderror
+                            </div>
+
+                            <!-- Type -->
+                            <div>
+                                <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Type</label>
+                                <select name="type" id="type"
+                                    class="w-full px-4 py-2 rounded-lg border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                                    <option value="needs">Needs</option>
+                                    <option value="wants">Wants</option>
+                                    <option value="savings">Savings</option>
+                                </select>
+                                @error('type')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                                <p class="text-sm text-gray-500 mb-2">Select the type of goal you're setting.</p>
                             </div>
                         </div>
                     </div>

@@ -12,6 +12,7 @@ class FinancialGoal extends Model
         'name',
         'description',
         'cover',
+        'type',
         'status',
         'target',
         'current_amount',

@@ -44,6 +44,7 @@ class FinancialGoalController extends Controller
             'name' => 'required|string|min:3|max:255',
             'description' => 'string|min:3|max:255',
             'target' => 'required|numeric',
+            'type' => 'required|in:needs,wants,savings',
             'current_amount' => 'required|numeric',
             'deadline' => 'required|date',
             'cover' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -56,6 +57,7 @@ class FinancialGoalController extends Controller
         $goal = FinancialGoal::create([
             'name' => $request->name,
             'description' => $request->description,
+            'type' => $request->type,
             'target' => $request->target,
             'current_amount' => $request->current_amount,
             'deadline' => $request->deadline,
@@ -117,6 +119,7 @@ class FinancialGoalController extends Controller
             'name' => 'required|string|min:3|max:255',
             'description' => 'nullable|string|min:3|max:255',
             'target' => 'required|numeric|min:0',
+            'type' => 'in:needs,wants,savings',
             'current_amount' => 'nullable|numeric|min:0',
             'deadline' => 'required|date',
             'cover' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
@@ -126,6 +129,7 @@ class FinancialGoalController extends Controller
         $updateData = [
             'name' => $request->name,
             'description' => $request->description,
+            'type' => $request->type,
             'target' => $request->target,
             'current_amount' => $request->current_amount ?? 0,
             'deadline' => $request->deadline,
