@@ -24,7 +24,7 @@ class AuthTest extends TestCase
         $response->assertRedirect(route('auth.login'))
             ->assertSessionHas('success', 'Account created successfully');
 
-        $this->assertDatabaseHas('users', ['email' => 'johndoe@example.com']);
+        $this->assertDatabaseHas('users', ['email' => 'test@test.com']);
     }
 
     public function test_user_can_login_with_valid_credentials()
