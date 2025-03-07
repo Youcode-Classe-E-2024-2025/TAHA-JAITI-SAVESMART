@@ -78,11 +78,21 @@
                             Edit Goal
                         </a>
                         @if ($goal->status === 'active')
-                            <button id="openAllocationModal"
-                                class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition">
-                                <i class="fas fa-coins mr-2"></i>
-                                Allocate Funds
-                            </button>
+                            <form action="{{ route('goal.deposit', $goal) }}" method="POST" id="allocationForm">
+                                @csrf
+                                <button id="openAllocationModal"
+                                    class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-lg text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition">
+                                    <i class="fas fa-coins mr-2"></i>
+                                    Allocate Funds
+                                </button>
+                            </form>
+
+
+                            <p class="text-sm text-gray-500 self-center">
+                                <i class="fas fa-info-circle text-blue-500 mr-1"></i>
+                                Amount to allocate <span
+                                    class="font-bold text-green-600 text-md">${{ $opt }}</span>
+                            </p>
                         @endif
                     </div>
 
@@ -269,114 +279,4 @@
             </div>
         </div>
     </div>
-
-    <!-- Allocation Modal -->
-    <div id="allocationModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
-        <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-            <div class="fixed inset-0 transition-opacity" aria-hidden="true">
-                <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
-            </div>
-            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
-            <div
-                class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
-                <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                    <div class="sm:flex sm:items-start">
-                        <div
-                            class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-green-100 sm:mx-0 sm:h-10 sm:w-10">
-                            <i class="fas fa-coins text-green-600"></i>
-                        </div>
-                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
-                                Allocate Funds to Goal
-                            </h3>
-                            <div class="mt-2">
-                                <p class="text-sm text-gray-500">
-                                    Add funds to your "{{ $goal->name }}" goal. Current progress:
-                                    {{ round(($goal->current_amount / $goal->target) * 100) }}%
-                                </p>
-                            </div>
-                            <form action="{{ route('goal.deposit', $goal) }}" method="POST" id="allocationForm"
-                                class="mt-4">
-                                @csrf
-                                <div class="mb-4">
-                                    <label for="amount" class="block text-sm font-medium text-gray-700">Amount</label>
-                                    <div class="mt-1 relative rounded-md shadow-sm">
-                                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <span class="text-gray-500 sm:text-sm">$</span>
-                                        </div>
-                                        <input type="number" name="amount" id="amount" step="0.01"
-                                            min="0.01"
-                                            class="focus:ring-blue-500 focus:border-blue-500 block w-full pl-7 pr-12 sm:text-sm border-gray-300 rounded-md"
-                                            placeholder="0.00">
-                                    </div>
-                                </div>
-                                <div>
-                                    <label for="category_id"
-                                        class="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                    <select id="category_id" name="category_id" required
-                                        class="w-full px-4 py-2 border @error('category_id') border-red-300 @else border-gray-300 @enderror rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 shadow-sm">
-                                        <option value="">Select a category</option>
-
-                                        @if (isset($categories) && count($categories) > 0)
-                                            <optgroup label="Categories">
-                                                @foreach ($categories as $category)
-                                                    <option value="{{ $category->id }}"
-                                                        {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                                                        {{ $category->name }}
-                                                    </option>
-                                                @endforeach
-                                            </optgroup>
-                                        @endif
-                                    </select>
-                                    @error('category_id')
-                                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                                    @enderror
-                                </div>
-                                <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                                    <button type="submit" id="submitAllocation"
-                                        class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 sm:ml-3 sm:w-auto sm:text-sm">
-                                        Add Funds
-                                    </button>
-                                    <button type="button" id="closeAllocationModal"
-                                        class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
-                                        Cancel
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const modal = document.getElementById('allocationModal');
-            const openModalBtn = document.getElementById('openAllocationModal');
-            const closeModalBtn = document.getElementById('closeAllocationModal');
-            const submitBtn = document.getElementById('submitAllocation');
-
-            window.openAllocationModal = function() {
-                modal.classList.remove('hidden');
-                document.body.classList.add('overflow-hidden');
-            };
-
-            const closeModal = function() {
-                modal.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-            };
-
-            openModalBtn.addEventListener('click', window.openAllocationModal);
-            closeModalBtn.addEventListener('click', closeModal);
-
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-
-        });
-    </script>
 @endsection

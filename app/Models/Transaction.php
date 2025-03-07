@@ -28,4 +28,11 @@ class Transaction extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public static function getBalence(int $id){
+        $income = Transaction::where('user_id', $id)->where('type', 'income')->sum('amount');
+        $expense = Transaction::where('user_id', $id)->where('type', 'expense')->sum('amount');
+
+        return $income - $expense;
+    }
 }

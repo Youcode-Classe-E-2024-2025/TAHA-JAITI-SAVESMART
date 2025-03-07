@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\FinancialGoal;
+use App\Services\BudgetOptService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -76,23 +77,8 @@ class FinancialGoalController extends Controller
 
     public function show(FinancialGoal $goal)
     {
-        $user = Auth::user();
-
-        $query = Category::query();
-
-        if ($user->family_id) {
-            $query->where(function ($q) use ($user) {
-                $q->where('user_id', $user->id)
-                    ->orWhere('family_id', $user->family_id);
-            });
-        } else {
-            $query->where('user_id', $user->id);
-        }
-
-        $categories = $query->get();
-
-
-        return view('goal.show', compact(['goal', 'categories']));
+        $opt = BudgetOptService::optimize(Auth::id(), $goal);
+        return view('goal.show', compact(['goal', 'opt']));
     }
 
     public function destroy(FinancialGoal $goal)
@@ -160,19 +146,14 @@ class FinancialGoalController extends Controller
         return to_route('goal.index')->with('error', 'Failed to update financial goal');
     }
 
-    public function deposit(Request $request ,FinancialGoal $goal){
+    public function deposit(FinancialGoal $goal){
         $user = Auth::user();
 
         if ($goal->user_id != $user->id) {
             return back()->with('error', 'You are not authorized to deposit to this goal');
         }
 
-        $request->validate([
-            'amount' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id',
-        ]);
-
-        $amount = $request->amount;
+        $amount = BudgetOptService::optimize(Auth::id(), $goal);
 
         $remaining = $goal->target - $goal->current_amount;
 
@@ -188,15 +169,20 @@ class FinancialGoalController extends Controller
             $goal->save();
         }
 
+        $category = Category::firstOrCreate([
+            'name' => ucfirst($goal->type),
+            'user_id' => $user->id,
+        ]);
+
 
         $transaction = Transaction::create([
             'name' => "Deposit to {$goal->name}",
             'amount' => $amount,
             'transaction_date' => now(),
             'type' => 'expense',
-            'category_id' => $request->category_id,
+            'category_id' => $category->id,
             'user_id' => $user->id,
-            "family_id" => $request->is_family ? $user->family_id : null,
+            "family_id" => $goal->is_family ? $user->family_id : null,
         ]);
 
         if ($transaction) {
