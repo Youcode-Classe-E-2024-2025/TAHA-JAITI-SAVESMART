@@ -149,10 +149,6 @@ class FinancialGoalController extends Controller
     public function deposit(FinancialGoal $goal){
         $user = Auth::user();
 
-        if ($goal->user_id != $user->id) {
-            return back()->with('error', 'You are not authorized to deposit to this goal');
-        }
-
         $amount = BudgetOptService::optimize(Auth::id(), $goal);
 
         $remaining = $goal->target - $goal->current_amount;
@@ -182,8 +178,9 @@ class FinancialGoalController extends Controller
             'type' => 'expense',
             'category_id' => $category->id,
             'user_id' => $user->id,
-            "family_id" => $goal->is_family ? $user->family_id : null,
+            "family_id" => $goal->family_id ? $user->family_id : null,
         ]);
+
 
         if ($transaction) {
             return back()->with('success', 'Deposit successful');
